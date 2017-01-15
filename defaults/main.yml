@@ -1,0 +1,9 @@
+---
+docker_operator_user: ""
+
+docker_registry_username: ""
+docker_registry_password: ""
+docker_registry_url: quay.io
+
+docker_listen_on_loopback: no
+docker_run_tests: no

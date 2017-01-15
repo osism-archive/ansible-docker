@@ -1,0 +1,164 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Add repository gpg key
+  apt_key:
+    keyserver: hkp://p80.pool.sks-keyservers.net:80
+    id: 58118E89F3A912897C070ADBF76221572C52609D
+  become: true
+
+- name: Add repository
+  apt_repository:
+    repo: "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Install linux-image-extra kernel package
+  package:
+    name: linux-image-extra-virtual
+    state: present
+  become: true
+
+- name: Install docker-engine package
+  package:
+    name: docker-engine
+    state: present
+  become: true
+
+- name: Create plugins directory
+  file:
+    path: /etc/docker/plugins
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  become: true
+
+- name: Create systemd overlay directory
+  file:
+    path: /etc/systemd/system/docker.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  become: true
+
+- name: Copy systemd overlay file
+  template:
+    src: overlay.conf.j2
+    dest: /etc/systemd/system/docker.service.d/overlay.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart docker service
+  become: true
+
+- name: Copy limits configuration file
+  copy:
+    src: limits.conf
+    dest: /etc/security/limits.d/docker.conf
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+
+- name: Copy daemon.json configuration file
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart docker service
+  become: true
+
+- meta: flush_handlers
+
+- name: Start/Enable service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: true
+
+- name: Start/Enable docker socket service
+  service:
+    name: docker.socket
+    state: started
+    enabled: yes
+  become: true
+
+- name: Install required python modules
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - python-docker
+    - python-ipaddress
+  become: true
+
+- name: Get status of ufw
+  command: ufw status
+  become: true
+  register: ufw_status
+  ignore_errors: true
+  changed_when: false
+
+- name: Set ufw_enabled fact
+  set_fact:
+    ufw_enabled: "'Status: active' in ufw_stats.stdout"
+
+- name: Allow incoming traffic
+  ufw:
+    interface: docker0
+    rule: allow
+    direction: in
+  when: ufw_enabled|bool
+  become: true
+
+- name: Add operator user to docker group
+  user:
+    name: "{{ docker_operator_user }}"
+    groups: docker
+    append: yes
+  when: docker_operator_user != ""
+  become: true
+
+- name: Log into private registry and force re-authorization
+  docker_login:
+    registry: "{{ docker_registry_url }}"
+    username: "{{ docker_registry_username }}"
+    password: "{{ docker_registry_password }}"
+    reauthorize: yes
+  when:
+    - docker_operator_user != ""
+    - docker_registry_username|default("") != ""
+    - docker_registry_password|default("") != ""
+  become: false
+  connection: paramiko
+
+- name: Log into private registry and force re-authorization
+  docker_login:
+    registry: "{{ docker_registry_url }}"
+    username: "{{ docker_registry_username }}"
+    password: "{{ docker_registry_password }}"
+    reauthorize: yes
+  when:
+    - docker_registry_username|default("") != ""
+    - docker_registry_password|default("") != ""
+  become: true
+  connection: paramiko
+
+- name: Ensure that docker is working like expected
+  include: test.yml
+  when: docker_run_tests|bool

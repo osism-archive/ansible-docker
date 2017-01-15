@@ -1,0 +1,3 @@
+molecule
+shade
+ansible==2.2.0.0

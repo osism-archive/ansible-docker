@@ -1,0 +1,17 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+  - name: Install python version 2
+    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+    register: result
+    changed_when: result.rc != 0
+    become: true
+
+- hosts: all
+  vars:
+    docker_operator_user: ubuntu
+    docker_run_tests: yes
+
+  roles:
+  - role: ansible-docker

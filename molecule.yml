@@ -1,0 +1,30 @@
+---
+driver:
+  name: openstack
+openstack:
+  keyfile: /ssh/id_rsa
+  instances:
+    - name: molecule-betacloud.docker
+      image: 'Ubuntu 16.04'
+      flavor: eg-7
+      sshuser: ubuntu
+      ansible_groups:
+        - ansiblegroup
+      security_groups:
+        - ssh
+ansible:
+  playbook: playbook.yml
+verifier:
+  name: testinfra
+molecule:
+  ignore_paths:
+    - .git
+    - .molecule
+    - .tox
+  test:
+    sequence:
+      - destroy
+      - create
+      - converge
+      - verify
+      - destroy
