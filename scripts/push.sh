@@ -22,6 +22,8 @@ set -x
 # NEXUS_PASSWORD
 # NEXUS_SERVER
 
+# Set default values:
+
 ARCHIVE=$NEXUS_ARTIFACT_NAME-$NEXUS_ARTIFACT_TAG.tar.gz
 
 tar cvzf $ARCHIVE README.md defaults files handlers meta tasks templates
