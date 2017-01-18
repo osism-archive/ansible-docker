@@ -14,6 +14,7 @@ openstack:
         - ssh
 ansible:
   playbook: playbook.yml
+  timeout: 120
 verifier:
   name: testinfra
 molecule:
