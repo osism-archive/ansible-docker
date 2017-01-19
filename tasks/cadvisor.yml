@@ -1,0 +1,52 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Pull cadvisor image
+  docker_image:
+    name: "google/cadvisor:{{ cadvisor_version }}"
+  become: false
+  connection: paramiko
+
+- name: Start cadvisor container
+  docker_container:
+    name: bc-cadvisor
+    image: "google/cadvisor:{{ cadvisor_version }}"
+    state: started
+    restart_policy: always
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker:/var/lib/docker:ro"
+    published_ports:
+      - "{{ cadvisor_listen_address }}:8082:8080"
+  when: not cadvisor_use_influxdb|bool
+  become: false
+  connection: paramiko
+
+- name: Start cadvisor container with influxdb storage driver
+  docker_container:
+    name: bc-cadvisor
+    image: google/cadvisor:latest
+    state: started
+    restart_policy: always
+    command: "-storage_driver=influxdb -storage_driver_host={{ cadvisor_influxdb_host }}:{{ cadvisor_influxdb_port }} -storage_driver_db={{ cadvisor_influxdb_database }} -storage_driver_user={{ cadvisor_influxdb_user }} -storage_driver_password={{ cadvisor_influxdb_password }}"
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker:/var/lib/docker:ro"
+    published_ports:
+      - "{{ cadvisor_host }}:{{ cadvisor_port }}:8080"
+  when: cadvisor_use_influxdb|bool
+  become: false
+  connection: paramiko

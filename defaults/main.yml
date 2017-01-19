@@ -1,9 +1,23 @@
 ---
 docker_operator_user: ""
 
+docker_listen_on_loopback: no
+
+docker_run_tests: no
+
+# docker registry related parameters
 docker_registry_username: ""
 docker_registry_password: ""
 docker_registry_url: quay.io
 
-docker_listen_on_loopback: no
-docker_run_tests: no
+# cadvisor related parameters
+docker_run_cadvisor: no
+cadvisor_version: latest
+cadvisor_host: localhost
+cadvisor_port: 8080
+cadvisor_use_influxdb: yes
+cadvisor_influxdb_host: influxdb
+cadvisor_influxdb_port: 8086
+cadvisor_influxdb_database: cadvisor
+cadvisor_influxdb_user: cadvisor
+cadvisor_influxdb_password: password

@@ -159,6 +159,10 @@
   become: true
   connection: paramiko
 
-- name: Ensure that docker is working like expected
+- name: Ensure docker is working like expected
   include: test.yml
   when: docker_run_tests|bool
+
+- name: Include cadvisor tasks
+  include: cadvisor.yml
+  when: docker_run_cadvisor|bool
