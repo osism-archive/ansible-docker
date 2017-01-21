@@ -8,6 +8,7 @@ openstack:
       image: 'Ubuntu 16.04'
       flavor: eg-7
       sshuser: ubuntu
+      ssh_timeout: 120
       ansible_groups:
         - ansiblegroup
       security_groups:
