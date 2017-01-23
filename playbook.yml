@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: ubuntu
   gather_facts: no
   tasks:
   - name: Install python version 2
@@ -8,10 +8,20 @@
     changed_when: result.rc != 0
     become: true
 
-- hosts: all
+- hosts: ubuntu
   vars:
     docker_operator_user: ubuntu
+    docker_run_cadvisor: yes
     docker_run_tests: yes
 
   roles:
-  - role: ansible-docker
+  - role: ansible-betacloud.docker
+
+- hosts: centos
+  vars:
+    docker_operator_user: centos
+    docker_run_cadvisor: yes
+    docker_run_tests: yes
+
+  roles:
+  - role: ansible-betacloud.docker

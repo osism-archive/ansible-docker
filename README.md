@@ -2,12 +2,13 @@
 
 [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-betacloud.docker-blue.svg)](https://galaxy.ansible.com/betacloud/docker/)
 
-This is an Ansible role that installs Docker on Ubuntu servers.
+This is an Ansible role that installs Docker on Ubuntu and CentOS servers.
 
 Requirements
 ------------
 
-Ubuntu 16.04 (Xenial)
+* Ubuntu 16.04 (Xenial)
+* CentOS 7
 
 Example Playbook
 ----------------

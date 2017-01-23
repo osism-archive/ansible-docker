@@ -11,45 +11,50 @@
 # limitations under the License.
 
 
-def test_docker_engine_is_installed(Package):
+def test_packages_are_installed(Package, SystemInfo):
     package = Package("docker-engine")
     assert package.is_installed
 
+    if SystemInfo.distribution == 'ubuntu':
+        package = Package("python-docker")
+        assert package.is_installed
 
-def test_linux_image_extra_is_installed(Package):
-    package = Package("linux-image-extra-virtual")
-    assert package.is_installed
+        package = Package("linux-image-extra-virtual")
+        assert package.is_installed
 
-
-def test_python_docker_is_installed(Package):
-    package = Package("python-docker")
-    assert package.is_installed
-
-
-def test_docker_serivce_running_and_enabled(Service):
-    service = Service("docker.service")
-    assert service.is_running
-    assert service.is_enabled
+    elif SystemInfo.distribution == 'centos':
+        package = Package("python-docker-py")
+        assert package.is_installed
 
 
-def test_docker_socket_running_and_enabled(Service):
-    service = Service("docker.socket")
-    assert service.is_running
-    assert service.is_enabled
+def test_services_are_running_and_enabled(Service, SystemInfo):
+    if SystemInfo.distribution == 'ubuntu':
+        service = Service("docker.service")
+        assert service.is_running
+        assert service.is_enabled
+
+        service = Service("docker.socket")
+        assert service.is_running
+        assert service.is_enabled
+
+    elif SystemInfo.distribution == 'centos':
+        service = Service("docker.service")
+        assert service.is_running
+        assert service.is_enabled
 
 
-def test_docker_socket_is_listening(Socket):
+def test_socket_is_listening(Socket):
     socket = Socket("unix:///var/run/docker.sock")
     assert socket.is_listening
 
 
-def test_systemd_docker_overlay_file_exists(File):
+def test_systemd_overlay_file_exists(File):
     file = File("/etc/systemd/system/docker.service.d/overlay.conf")
     assert file.exists
     assert file.is_file
 
 
-def test_docker_limits_file_exists(File):
+def test_limits_file_exists(File):
     file = File("/etc/security/limits.d/docker.conf")
     assert file.exists
     assert file.is_file

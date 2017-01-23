@@ -4,13 +4,22 @@ driver:
 openstack:
   keyfile: /ssh/id_rsa
   instances:
-    - name: molecule-betacloud.docker
+    - name: molecule-betacloud.docker-ubuntu
       image: 'Ubuntu 16.04'
-      flavor: eg-7
+      flavor: vps-ssd-1
       sshuser: ubuntu
       ssh_timeout: 120
       ansible_groups:
-        - ansiblegroup
+        - ubuntu
+      security_groups:
+        - ssh
+    - name: molecule-betacloud.docker-centos
+      image: 'Centos 7'
+      flavor: vps-ssd-1
+      sshuser: centos
+      ssh_timeout: 120
+      ansible_groups:
+        - centos
       security_groups:
         - ssh
 ansible:
