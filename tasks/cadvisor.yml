@@ -36,7 +36,7 @@
 - name: Start cadvisor container with influxdb storage driver
   docker_container:
     name: bc-cadvisor
-    image: google/cadvisor:latest
+    image: "google/cadvisor:{{ cadvisor_version }}"
     state: started
     restart_policy: always
     command: "-storage_driver=influxdb -storage_driver_host={{ cadvisor_influxdb_host }}:{{ cadvisor_influxdb_port }} -storage_driver_db={{ cadvisor_influxdb_database }} -storage_driver_user={{ cadvisor_influxdb_user }} -storage_driver_password={{ cadvisor_influxdb_password }}"
