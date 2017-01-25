@@ -100,6 +100,8 @@
   when: docker_operator_user != ""
   become: true
 
+# use paramiko connection to force a re-login
+
 - name: Log into private registry and force re-authorization
   docker_login:
     registry: "{{ docker_registry }}"
