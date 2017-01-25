@@ -13,12 +13,12 @@ docker_registry: quay.io
 # cadvisor related parameters
 docker_run_cadvisor: no
 cadvisor_version: latest
-cadvisor_host: localhost
+cadvisor_listen_address: 0.0.0.0
 cadvisor_port: 8080
+
 cadvisor_use_influxdb: no
 cadvisor_influxdb_host: influxdb
 cadvisor_influxdb_port: 8086
 cadvisor_influxdb_database: cadvisor
 cadvisor_influxdb_user: cadvisor
 cadvisor_influxdb_password: password
-cadvisor_listen_address: 0.0.0.0

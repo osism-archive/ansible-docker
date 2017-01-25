@@ -46,7 +46,7 @@
       - "/sys:/sys:ro"
       - "/var/lib/docker:/var/lib/docker:ro"
     published_ports:
-      - "{{ cadvisor_host }}:{{ cadvisor_port }}:8080"
+      - "{{ cadvisor_listen_address }}:{{ cadvisor_port }}:8080"
   when: cadvisor_use_influxdb|bool
   become: false
   connection: paramiko
