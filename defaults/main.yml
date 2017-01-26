@@ -1,9 +1,8 @@
 ---
-docker_operator_user: ""
-
 docker_listen_on_loopback: no
-
+docker_operator_user: ""
 docker_run_tests: no
+use_docker_as_privileged_user: no
 
 # docker registry related parameters
 docker_registry_username: ""

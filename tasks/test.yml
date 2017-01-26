@@ -13,7 +13,7 @@
 - name: Pull an image
   docker_image:
     name: alpine
-  become: false
+  become: "{{ use_docker_as_privileged_user }}"
   connection: paramiko
 
 - name: Start a container
@@ -21,19 +21,19 @@
     name: sleepy
     image: alpine
     command: sleep infinity
-  become: false
+  become: "{{ use_docker_as_privileged_user }}"
   connection: paramiko
 
 - name: Remove a container
   docker_container:
     name: sleepy
     state: absent
-  become: false
+  become: "{{ use_docker_as_privileged_user }}"
   connection: paramiko
 
 - name: Remove image
   docker_image:
     name: alpine
     state: absent
-  become: false
+  become: "{{ use_docker_as_privileged_user }}"
   connection: paramiko

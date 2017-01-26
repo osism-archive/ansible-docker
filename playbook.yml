@@ -13,6 +13,7 @@
     docker_operator_user: ubuntu
     docker_run_cadvisor: yes
     docker_run_tests: yes
+    use_docker_as_privileged_user: yes
 
   roles:
   - role: ansible-betacloud.docker
@@ -22,6 +23,7 @@
     docker_operator_user: centos
     docker_run_cadvisor: yes
     docker_run_tests: yes
+    use_docker_as_privileged_user: yes
 
   roles:
   - role: ansible-betacloud.docker

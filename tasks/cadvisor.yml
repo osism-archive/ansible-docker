@@ -13,7 +13,7 @@
 - name: Pull cadvisor image
   docker_image:
     name: "google/cadvisor:{{ cadvisor_version }}"
-  become: false
+  become: "{{ use_docker_as_privileged_user }}"
   connection: paramiko
 
 - name: Start cadvisor container
@@ -30,8 +30,7 @@
     published_ports:
       - "{{ cadvisor_listen_address }}:8082:8080"
   when: not cadvisor_use_influxdb|bool
-  become: false
-  connection: paramiko
+  become: "{{ use_docker_as_privileged_user }}"
 
 - name: Start cadvisor container with influxdb storage driver
   docker_container:
@@ -48,5 +47,5 @@
     published_ports:
       - "{{ cadvisor_listen_address }}:{{ cadvisor_port }}:8080"
   when: cadvisor_use_influxdb|bool
-  become: false
+  become: "{{ use_docker_as_privileged_user }}"
   connection: paramiko
