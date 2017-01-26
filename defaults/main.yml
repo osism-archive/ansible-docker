@@ -5,19 +5,23 @@ docker_run_tests: no
 use_docker_as_privileged_user: no
 
 # docker registry related parameters
-docker_registry_username: ""
-docker_registry_password: ""
+
 docker_registry: quay.io
+docker_registry_password: ""
+docker_registry_username: ""
 
 # cadvisor related parameters
-docker_run_cadvisor: no
-cadvisor_version: latest
-cadvisor_listen_address: 0.0.0.0
+
+cadvisor_listen_address: "{{ ansible_default_ipv4.address }}"
 cadvisor_port: 8080
+cadvisor_version: latest
+docker_run_cadvisor: no
+
+# cadvisor related parameters (influxdb)
 
 cadvisor_use_influxdb: no
-cadvisor_influxdb_host: influxdb
-cadvisor_influxdb_port: 8086
 cadvisor_influxdb_database: cadvisor
-cadvisor_influxdb_user: cadvisor
+cadvisor_influxdb_host: influxdb
 cadvisor_influxdb_password: password
+cadvisor_influxdb_port: 8086
+cadvisor_influxdb_user: cadvisor
