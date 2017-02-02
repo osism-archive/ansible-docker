@@ -1,11 +1,60 @@
 # This file is subject to the terms and conditions defined in file 'LICENSE',
 # which is part of this repository.
 ---
+- name: Install python-passlib package
+  package:
+    name: python-passlib
+    state: present
+  become: true
+
+- name: Create cadvisor configuration directory
+  file:
+    path: /etc/cadvisor
+    state: directory
+    owner: root
+    group: root
+    mode: 0750
+  become: true
+  when: "cadvisor_username != ''"
+
+- name: Create htpasswd file for cadvisor
+  htpasswd:
+    path: /etc/cadvisor/htpasswd
+    name: "{{ cadvisor_username }}"
+    password: "{{ cadvisor_password }}"
+    owner: root
+    group: root
+    mode: 0640
+  become: true
+  when: "cadvisor_username != ''"
+
 - name: Pull cadvisor image
   docker_image:
     name: "google/cadvisor:{{ cadvisor_version }}"
   become: "{{ use_docker_as_privileged_user }}"
   connection: paramiko
+
+- name: Add http auth details to cadvisor command
+  set_fact:
+    cadvisor_command: "--http_auth_file /htpasswd --http_auth_realm 'cadvisor@{{ inventory_hostname }}'"
+  when: "cadvisor_username != ''"
+
+- name: Add influxdb connection details to cadvisor command
+  set_fact:
+    cadvisor_command: "{{ cadvisor_command|default('') }} -storage_driver=influxdb -storage_driver_host={{ cadvisor_influxdb_host }}:{{ cadvisor_influxdb_port }} -storage_driver_db={{ cadvisor_influxdb_database }} -storage_driver_user={{ cadvisor_influxdb_user }} -storage_driver_password={{ cadvisor_influxdb_password }}"
+  when: cadvisor_use_influxdb|bool
+
+- name: Prepare volumes list
+  set_fact:
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker:/var/lib/docker:ro"
+
+- name: Provide htpasswd file when enabling HTTP auth
+  set_fact:
+    volumes: "{{ volumes }} + ['/etc/cadvisor/htpasswd:/htpasswd:ro']"
 
 - name: Start cadvisor container
   docker_container:
@@ -13,30 +62,8 @@
     image: "google/cadvisor:{{ cadvisor_version }}"
     state: started
     restart_policy: always
-    volumes:
-      - "/:/rootfs:ro"
-      - "/var/run:/var/run:rw"
-      - "/sys:/sys:ro"
-      - "/var/lib/docker:/var/lib/docker:ro"
-    published_ports:
-      - "{{ cadvisor_listen_address }}:8082:8080"
-  when: not cadvisor_use_influxdb|bool
-  become: "{{ use_docker_as_privileged_user }}"
-
-- name: Start cadvisor container with influxdb storage driver
-  docker_container:
-    name: bc-cadvisor
-    image: "google/cadvisor:{{ cadvisor_version }}"
-    state: started
-    restart_policy: always
-    command: "-storage_driver=influxdb -storage_driver_host={{ cadvisor_influxdb_host }}:{{ cadvisor_influxdb_port }} -storage_driver_db={{ cadvisor_influxdb_database }} -storage_driver_user={{ cadvisor_influxdb_user }} -storage_driver_password={{ cadvisor_influxdb_password }}"
-    volumes:
-      - "/:/rootfs:ro"
-      - "/var/run:/var/run:rw"
-      - "/sys:/sys:ro"
-      - "/var/lib/docker:/var/lib/docker:ro"
+    volumes: "{{ volumes }}"
     published_ports:
       - "{{ cadvisor_listen_address }}:{{ cadvisor_port }}:8080"
-  when: cadvisor_use_influxdb|bool
+    command: "{{ cadvisor_command|default('') }}"
   become: "{{ use_docker_as_privileged_user }}"
-  connection: paramiko

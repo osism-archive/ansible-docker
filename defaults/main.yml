@@ -12,10 +12,12 @@ docker_registry_username: ""
 
 # cadvisor related parameters
 
-cadvisor_listen_address: "{{ ansible_default_ipv4.address }}"
-cadvisor_port: 8080
-cadvisor_version: latest
 docker_run_cadvisor: no
+cadvisor_listen_address: "{{ ansible_default_ipv4.address }}"
+cadvisor_password: password
+cadvisor_port: 8080
+cadvisor_username: cadvisor
+cadvisor_version: latest
 
 # cadvisor related parameters (influxdb)
 
