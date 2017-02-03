@@ -4,8 +4,8 @@
 
 This is an Ansible role that installs Docker on Ubuntu and CentOS servers.
 
-Requirements
-------------
+Supported Linux distributions
+-----------------------------
 
 * Ubuntu 16.04 (Xenial)
 * CentOS 7
