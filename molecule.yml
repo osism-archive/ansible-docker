@@ -10,6 +10,7 @@ openstack:
       sshuser: ubuntu
       ssh_timeout: 120
       ansible_groups:
+        - molecule
         - ubuntu
       security_groups:
         - ssh
@@ -20,6 +21,7 @@ openstack:
       ssh_timeout: 120
       ansible_groups:
         - centos
+        - molecule
       security_groups:
         - ssh
 ansible:
