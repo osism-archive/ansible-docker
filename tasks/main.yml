@@ -43,6 +43,17 @@
   notify: Restart docker service
   become: true
 
+- name: Copy proxy environment file
+  template:
+    src: proxy.env.j2
+    dest: /etc/systemd/system/docker.service.d/proxy.env
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart docker service
+  become: true
+  when: docker_use_proxy|bool
+
 - name: Copy limits configuration file
   copy:
     src: limits.conf

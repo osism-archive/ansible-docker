@@ -4,11 +4,17 @@ docker_operator_user: ""
 docker_run_tests: no
 use_docker_as_privileged_user: no
 
-# docker registry related parameters
+# registry related parameters
 
 docker_registry: quay.io
 docker_registry_password: ""
 docker_registry_username: ""
+
+# proxy related parameters
+
+docker_use_proxy: no
+docker_http_proxy: "http://proxy.tld:8080"
+docker_https_proxy: "https://proxy.tld:8080"
 
 # cadvisor related parameters
 
