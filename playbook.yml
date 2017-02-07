@@ -10,8 +10,28 @@
     changed_when: result.rc != 0
     become: true
 
+- hosts: centos
+  tasks:
+  - name: Install epel-release package
+    package:
+      name: http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
+      state: present
+    become: true
+
+- hosts: all
+  become: true
+  tasks:
+  - name: Create loopback device image
+    shell: fallocate -l 1073741824 /tmp/dolo.img
+
+  - name: Create loopback device image
+    shell: losetup /dev/loop0 /tmp/dolo.img
+    become: true
+
 - hosts: ubuntu
   vars:
+    docker_listen_on_loopback: yes
+    docker_listen_on_loopback: yes
     docker_operator_user: ubuntu
     docker_run_cadvisor: yes
     docker_run_tests: yes
@@ -22,6 +42,8 @@
 
 - hosts: centos
   vars:
+    docker_listen_on_loopback: yes
+    docker_listen_on_loopback: yes
     docker_operator_user: centos
     docker_run_cadvisor: yes
     docker_run_tests: yes

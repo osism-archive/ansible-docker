@@ -9,6 +9,10 @@
   include: redhat.yml
   when: ansible_os_family == 'RedHat'
 
+- name: Include storage tasks
+  include: storage.yml
+  when: docker_storage_block_device|default("") != ""
+
 - name: Install docker-engine package
   package:
     name: docker-engine

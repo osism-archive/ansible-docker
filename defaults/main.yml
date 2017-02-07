@@ -10,6 +10,12 @@ docker_registry: quay.io
 docker_registry_password: ""
 docker_registry_username: ""
 
+# storage driver related parameters
+
+docker_storage_driver: overlay
+docker_storage_block_device: ""
+docker_storage_filesystem: ext4
+
 # proxy related parameters
 
 docker_proxy: no
