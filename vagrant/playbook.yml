@@ -26,10 +26,16 @@
   tasks:
   - name: Create loopback device image
     shell: fallocate -l 1073741824 /tmp/dolo.img
+    changed_when: false
+    tags:
+    - skip_ansible_lint
 
   - name: Create loopback device image
     shell: losetup /dev/loop0 /tmp/dolo.img
+    changed_when: false
     become: true
+    tags:
+    - skip_ansible_lint
 
 - name: Playbook for role testing
   hosts: all

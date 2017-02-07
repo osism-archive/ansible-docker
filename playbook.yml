@@ -23,14 +23,19 @@
   tasks:
   - name: Create loopback device image
     shell: fallocate -l 1073741824 /tmp/dolo.img
+    changed_when: false
+    tags:
+    - skip_ansible_lint
 
   - name: Create loopback device image
     shell: losetup /dev/loop0 /tmp/dolo.img
+    changed_when: false
     become: true
+    tags:
+    - skip_ansible_lint
 
 - hosts: ubuntu
   vars:
-    docker_listen_on_loopback: yes
     docker_listen_on_loopback: yes
     docker_operator_user: ubuntu
     docker_run_cadvisor: yes
@@ -42,7 +47,6 @@
 
 - hosts: centos
   vars:
-    docker_listen_on_loopback: yes
     docker_listen_on_loopback: yes
     docker_operator_user: centos
     docker_run_cadvisor: yes
