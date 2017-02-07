@@ -14,7 +14,7 @@ docker_registry_username: ""
 
 docker_use_proxy: no
 docker_http_proxy: "http://proxy.tld:8080"
-docker_https_proxy: "https://proxy.tld:8080"
+docker_https_proxy: "{{ docker_http_proxy }}"
 
 # cadvisor related parameters
 
