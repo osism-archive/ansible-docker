@@ -1,0 +1,45 @@
+---
+- name: Install python version 2
+  hosts: all
+  gather_facts: no
+
+  tasks:
+  - name: Install python version 2 on ubuntu
+    raw: test -e /usr/bin/python || (test -e /usr/bin/apt && (apt -y update && apt install -y python-minimal))
+    become: true
+
+- name: Add epel repository on centos
+  hosts: all
+
+  tasks:
+  - name: Install epel-release package
+    package:
+      name: http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
+      state: present
+    become: true
+    when: ansible_os_family == "RedHat"
+
+- name: Prepare block storage device
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Create loopback device image
+    shell: fallocate -l 1073741824 /tmp/dolo.img
+
+  - name: Create loopback device image
+    shell: losetup /dev/loop0 /tmp/dolo.img
+    become: true
+
+- name: Playbook for role testing
+  hosts: all
+
+  vars:
+    docker_listen_on_loopback: yes
+    docker_run_cadvisor: yes
+    docker_run_tests: yes
+    docker_storage_block_device: /dev/loop0
+    use_docker_as_privileged_user: yes
+
+  roles:
+    - role: "../../ansible-docker"
