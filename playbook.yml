@@ -34,21 +34,9 @@
     tags:
     - skip_ansible_lint
 
-- hosts: ubuntu
+- hosts: all
   vars:
     docker_listen_on_loopback: yes
-    docker_operator_user: ubuntu
-    docker_run_cadvisor: yes
-    docker_run_tests: yes
-    use_docker_as_privileged_user: yes
-
-  roles:
-  - role: ansible-betacloud.docker
-
-- hosts: centos
-  vars:
-    docker_listen_on_loopback: yes
-    docker_operator_user: centos
     docker_run_cadvisor: yes
     docker_run_tests: yes
     use_docker_as_privileged_user: yes
