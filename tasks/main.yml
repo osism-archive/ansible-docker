@@ -128,4 +128,4 @@
 
 - name: Include cadvisor tasks
   include: cadvisor.yml
-  when: docker_run_cadvisor|bool
+  when: cadvisor|bool

@@ -28,42 +28,18 @@
   become: true
   when: "cadvisor_username != ''"
 
-- name: Pull cadvisor image
-  docker_image:
-    name: "google/cadvisor:{{ cadvisor_version }}"
-  become: "{{ use_docker_as_privileged_user }}"
-  connection: paramiko
+- name: Prepare cadvisor command
+  set_fact:
+    cadvisor_command: "-docker_only -disable_metrics='disk'"
 
 - name: Add http auth details to cadvisor command
   set_fact:
-    cadvisor_command: "--http_auth_file /htpasswd --http_auth_realm 'cadvisor@{{ inventory_hostname }}'"
+    cadvisor_command: "{{ cadvisor_command }} -http_auth_file /etc/cadvisor/htpasswd -http_auth_realm 'cadvisor@{{ inventory_hostname }}'"
   when: "cadvisor_username != ''"
 
 - name: Add influxdb connection details to cadvisor command
   set_fact:
-    cadvisor_command: "{{ cadvisor_command|default('') }} -storage_driver=influxdb -storage_driver_host={{ cadvisor_influxdb_host }}:{{ cadvisor_influxdb_port }} -storage_driver_db={{ cadvisor_influxdb_database }} -storage_driver_user={{ cadvisor_influxdb_user }} -storage_driver_password={{ cadvisor_influxdb_password }}"
+    cadvisor_command: "{{ cadvisor_command }} -storage_driver=influxdb -storage_driver_host={{ cadvisor_influxdb_host }}:{{ cadvisor_influxdb_port }} -storage_driver_db={{ cadvisor_influxdb_database }} -storage_driver_user={{ cadvisor_influxdb_user }} -storage_driver_password={{ cadvisor_influxdb_password }}"
   when: cadvisor_use_influxdb|bool
 
-- name: Prepare volumes list
-  set_fact:
-    volumes:
-      - "/:/rootfs:ro"
-      - "/var/run:/var/run:rw"
-      - "/sys:/sys:ro"
-      - "/var/lib/docker:/var/lib/docker:ro"
-
-- name: Provide htpasswd file when enabling HTTP auth
-  set_fact:
-    volumes: "{{ volumes }} + ['/etc/cadvisor/htpasswd:/htpasswd:ro']"
-
-- name: Start cadvisor container
-  docker_container:
-    name: bc-cadvisor
-    image: "google/cadvisor:{{ cadvisor_version }}"
-    state: started
-    restart_policy: always
-    volumes: "{{ volumes }}"
-    published_ports:
-      - "{{ cadvisor_listen_address }}:{{ cadvisor_port }}:8080"
-    command: "{{ cadvisor_command|default('') }}"
-  become: "{{ use_docker_as_privileged_user }}"
+- include: "cadvisor-{{ cadvisor_type }}.yml"

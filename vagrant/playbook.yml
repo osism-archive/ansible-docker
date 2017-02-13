@@ -27,6 +27,7 @@
   - name: Create loopback device image
     shell: fallocate -l 1073741824 /tmp/dolo.img
     changed_when: false
+    ignore_errors: yes
     tags:
     - skip_ansible_lint
 
@@ -34,15 +35,30 @@
     shell: losetup /dev/loop0 /tmp/dolo.img
     changed_when: false
     become: true
+    ignore_errors: yes
     tags:
     - skip_ansible_lint
 
-- name: Playbook for role testing
+- name: Playbook for role testing (cadvisor type docker)
   hosts: all
 
   vars:
+    cadvisor: yes
     docker_listen_on_loopback: yes
-    docker_run_cadvisor: yes
+    docker_run_tests: yes
+    docker_storage_block_device: /dev/loop0
+    use_docker_as_privileged_user: yes
+
+  roles:
+    - role: "../../ansible-docker"
+
+- name: Playbook for role testing (cadvisor type service)
+  hosts: all
+
+  vars:
+    cadvisor: yes
+    cadvisor_type: service
+    docker_listen_on_loopback: yes
     docker_run_tests: yes
     docker_storage_block_device: /dev/loop0
     use_docker_as_privileged_user: yes

@@ -1,0 +1,10 @@
+[Unit]
+Description=Cadvisor
+After=docker.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/cadvisor -listen_ip {{ cadvisor_listen_address }} -port {{ cadvisor_port }} {{ cadvisor_command }}
+
+[Install]
+WantedBy=default.target

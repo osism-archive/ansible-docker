@@ -1,0 +1,41 @@
+# This file is subject to the terms and conditions defined in file 'LICENSE',
+# which is part of this repository.
+---
+- name: Stop/disable cadvisor service
+  service:
+    name: cadvisor
+    state: stopped
+    enabled: no
+  register: result
+  failed_when: "result|failed and 'Could not find the requested service' not in result.msg"
+  become: true
+
+- name: Pull cadvisor image
+  docker_image:
+    name: "google/cadvisor:{{ cadvisor_version }}"
+  become: "{{ use_docker_as_privileged_user }}"
+  connection: paramiko
+
+- name: Prepare volumes list
+  set_fact:
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker:/var/lib/docker:ro"
+
+- name: Provide htpasswd file when enabling HTTP auth
+  set_fact:
+    volumes: "{{ volumes }} + ['/etc/cadvisor/htpasswd:/etc/cadvisor/htpasswd:ro']"
+
+- name: Start cadvisor container
+  docker_container:
+    name: bc-cadvisor
+    image: "google/cadvisor:{{ cadvisor_version }}"
+    state: started
+    restart_policy: always
+    volumes: "{{ volumes }}"
+    published_ports:
+      - "{{ cadvisor_listen_address }}:{{ cadvisor_port }}:8080"
+    command: "{{ cadvisor_command }}"
+  become: "{{ use_docker_as_privileged_user }}"

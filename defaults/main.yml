@@ -27,7 +27,8 @@ docker_proxy_no_proxy:
 
 # cadvisor related parameters
 
-docker_run_cadvisor: no
+cadvisor: no
+cadvisor_type: docker
 cadvisor_listen_address: "{{ ansible_default_ipv4.address }}"
 cadvisor_password: password
 cadvisor_port: 8080
