@@ -59,7 +59,20 @@
     cadvisor: yes
     cadvisor_type: service
     docker_listen_on_loopback: yes
-    docker_run_tests: yes
+    docker_run_tests: no
+    docker_storage_block_device: /dev/loop0
+    use_docker_as_privileged_user: yes
+
+  roles:
+    - role: "../../ansible-docker"
+
+- name: Playbook for role testing (cadvisor disabled)
+  hosts: all
+
+  vars:
+    cadvisor: no
+    docker_listen_on_loopback: yes
+    docker_run_tests: no
     docker_storage_block_device: /dev/loop0
     use_docker_as_privileged_user: yes
 

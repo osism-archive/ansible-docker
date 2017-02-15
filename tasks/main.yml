@@ -126,6 +126,10 @@
   include: test.yml
   when: docker_run_tests|bool
 
-- name: Include cadvisor tasks
-  include: cadvisor.yml
+- name: Enable cadvisor
+  include: cadvisor-enable.yml
   when: cadvisor|bool
+
+- name: Disable cadvisor
+  include: cadvisor-disable.yml
+  when: not cadvisor|bool

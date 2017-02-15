@@ -49,7 +49,17 @@
     cadvisor: yes
     cadvisor_type: service
     docker_listen_on_loopback: yes
-    docker_run_tests: yes
+    docker_run_tests: no
+    use_docker_as_privileged_user: yes
+
+  roles:
+  - role: ansible-betacloud.docker
+
+- hosts: all
+  vars:
+    cadvisor: no
+    docker_listen_on_loopback: yes
+    docker_run_tests: no
     use_docker_as_privileged_user: yes
 
   roles:
