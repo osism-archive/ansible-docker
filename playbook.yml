@@ -1,7 +1,8 @@
 # This file is subject to the terms and conditions defined in file 'LICENSE',
 # which is part of this repository.
 ---
-- hosts: ubuntu
+- name: Install python version 2
+  hosts: ubuntu
   gather_facts: no
   tasks:
   - name: Install python version 2
@@ -10,7 +11,8 @@
     changed_when: result.rc != 0
     become: true
 
-- hosts: centos
+- name: Add epel repository on centos
+  hosts: centos
   tasks:
   - name: Install epel-release package
     package:
@@ -18,7 +20,8 @@
       state: present
     become: true
 
-- hosts: all
+- name: Prepare block storage device
+  hosts: all
   become: true
   tasks:
   - name: Create loopback device image
@@ -34,33 +37,36 @@
     tags:
     - skip_ansible_lint
 
-- hosts: all
+- name: Playbook for role testing (cadvisor type docker)
+  hosts: all
   vars:
-    cadvisor: yes
+    docker_configure_cadvisor: yes
     docker_listen_on_loopback: yes
     docker_run_tests: yes
-    use_docker_as_privileged_user: yes
+    docker_as_privileged_user: yes
 
   roles:
   - role: ansible-betacloud.docker
 
-- hosts: all
+- name: Playbook for role testing (cadvisor type service)
+  hosts: all
   vars:
-    cadvisor: yes
+    docker_configure_cadvisor: yes
     cadvisor_type: service
     docker_listen_on_loopback: yes
     docker_run_tests: no
-    use_docker_as_privileged_user: yes
+    docker_as_privileged_user: yes
 
   roles:
   - role: ansible-betacloud.docker
 
-- hosts: all
+- name: Playbook for role testing (cadvisor disabled)
+  hosts: all
   vars:
-    cadvisor: no
+    docker_configure_cadvisor: no
     docker_listen_on_loopback: yes
     docker_run_tests: no
-    use_docker_as_privileged_user: yes
+    docker_as_privileged_user: yes
 
   roles:
   - role: ansible-betacloud.docker

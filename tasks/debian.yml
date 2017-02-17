@@ -28,3 +28,7 @@
     - python-docker
     - python-ipaddress
   become: true
+
+- name: Add * to docker_version
+  set_fact:
+    docker_version: "{{ docker_version }}*"

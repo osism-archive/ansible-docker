@@ -8,14 +8,14 @@
   ignore_errors: true
   changed_when: false
 
-- name: Set ufw_enabled fact
+- name: Set docker_configure_ufw fact
   set_fact:
-    ufw_enabled: "'Status: active' in ufw_stats.stdout"
+    docker_configure_ufw: "'Status: active' in ufw_stats.stdout"
 
 - name: Allow incoming traffic
   ufw:
     interface: docker0
     rule: allow
     direction: in
-  when: ufw_enabled|bool
+  when: docker_configure_ufw|bool
   become: true

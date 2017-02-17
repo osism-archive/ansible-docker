@@ -6,7 +6,7 @@
     name: bc-cadvisor
     image: "google/cadvisor:{{ cadvisor_version }}"
     state: absent
-  become: "{{ use_docker_as_privileged_user }}"
+  become: "{{ docker_as_privileged_user }}"
 
 - name: Copy cadvisor binary
   copy:

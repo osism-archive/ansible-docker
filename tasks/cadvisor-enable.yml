@@ -40,6 +40,6 @@
 - name: Add influxdb connection details to cadvisor command
   set_fact:
     cadvisor_command: "{{ cadvisor_command }} -storage_driver=influxdb -storage_driver_host={{ cadvisor_influxdb_host }}:{{ cadvisor_influxdb_port }} -storage_driver_db={{ cadvisor_influxdb_database }} -storage_driver_user={{ cadvisor_influxdb_user }} -storage_driver_password={{ cadvisor_influxdb_password }}"
-  when: cadvisor_use_influxdb|bool
+  when: cadvisor_configure_influxdb|bool
 
 - include: "cadvisor-{{ cadvisor_type }}.yml"

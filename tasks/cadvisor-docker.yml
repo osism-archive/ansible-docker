@@ -13,7 +13,7 @@
 - name: Pull cadvisor image
   docker_image:
     name: "google/cadvisor:{{ cadvisor_version }}"
-  become: "{{ use_docker_as_privileged_user }}"
+  become: "{{ docker_as_privileged_user }}"
   connection: paramiko
 
 - name: Prepare volumes list
@@ -38,4 +38,4 @@
     published_ports:
       - "{{ cadvisor_listen_address }}:{{ cadvisor_port }}:8080"
     command: "{{ cadvisor_command }}"
-  become: "{{ use_docker_as_privileged_user }}"
+  become: "{{ docker_as_privileged_user }}"

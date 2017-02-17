@@ -2,7 +2,8 @@
 docker_listen_on_loopback: no
 docker_operator_user: ""
 docker_run_tests: no
-use_docker_as_privileged_user: no
+docker_version: 1.12.6
+docker_as_privileged_user: no
 
 # registry related parameters
 
@@ -12,13 +13,14 @@ docker_registry_username: ""
 
 # storage driver related parameters
 
-docker_storage_driver: aufs
+docker_configure_storage_driver: no
+docker_storage_driver: overlay
 docker_storage_block_device: ""
 docker_storage_filesystem: ext4
 
 # proxy related parameters
 
-docker_proxy: no
+docker_configure_proxy: no
 docker_proxy_http: "http://proxy.tld:8080"
 docker_proxy_https: "{{ docker_proxy_http }}"
 docker_proxy_no_proxy:
@@ -27,7 +29,7 @@ docker_proxy_no_proxy:
 
 # cadvisor related parameters
 
-cadvisor: no
+docker_configure_cadvisor: no
 cadvisor_type: docker
 cadvisor_listen_address: "{{ ansible_default_ipv4.address }}"
 cadvisor_password: password
@@ -37,7 +39,7 @@ cadvisor_version: latest
 
 # cadvisor related parameters (influxdb)
 
-cadvisor_use_influxdb: no
+cadvisor_configure_influxdb: no
 cadvisor_influxdb_database: cadvisor
 cadvisor_influxdb_host: influxdb
 cadvisor_influxdb_password: password

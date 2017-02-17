@@ -13,11 +13,21 @@
   include: storage.yml
   when: docker_storage_block_device|default("") != ""
 
-- name: Install docker-engine package
-  package:
-    name: docker-engine
+# FIXME: versionlock / pinning
+
+- name: Install docker-engine package with yum
+  yum:
+    name: "docker-engine-{{ docker_version }}"
     state: present
   become: true
+  when: ansible_os_family == 'RedHat'
+
+- name: Install docker-engine package with apt
+  apt:
+    name: "docker-engine={{ docker_version }}"
+    state: present
+  become: true
+  when: ansible_os_family == 'Debian'
 
 - name: Create plugins directory
   file:
@@ -128,8 +138,8 @@
 
 - name: Enable cadvisor
   include: cadvisor-enable.yml
-  when: cadvisor|bool
+  when: docker_configure_cadvisor|bool
 
 - name: Disable cadvisor
   include: cadvisor-disable.yml
-  when: not cadvisor|bool
+  when: not docker_configure_cadvisor|bool
