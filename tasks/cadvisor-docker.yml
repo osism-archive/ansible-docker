@@ -12,7 +12,7 @@
 
 - name: Pull cadvisor image
   docker_image:
-    name: "google/cadvisor:{{ cadvisor_version }}"
+    name: "{{ cadvisor_image }}"
   become: "{{ docker_as_privileged_user }}"
   connection: paramiko
 

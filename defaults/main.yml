@@ -35,7 +35,8 @@ cadvisor_listen_address: "{{ ansible_default_ipv4.address }}"
 cadvisor_password: password
 cadvisor_port: 8080
 cadvisor_username: cadvisor
-cadvisor_version: latest
+cadvisor_version: v0.25.0
+cadvisor_image: "google/cadvisor:{{ cadvisor_version }}"
 
 # cadvisor related parameters (influxdb)
 
