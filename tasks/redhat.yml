@@ -28,6 +28,8 @@
   changed_when: "'versionlock deleted: 1' in result.stdout"
   failed_when: result.rc not in [0,1]
   become: true
+  tags:
+    - skip_ansible_lint
 
 - name: Install docker-engine package
   yum:
@@ -40,3 +42,5 @@
   register: result
   changed_when: "'versionlock added: 1' in result.stdout"
   become: true
+  tags:
+    - skip_ansible_lint

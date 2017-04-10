@@ -32,4 +32,6 @@
 
 - name: Hold docker-engine package
   command: apt-mark hold docker-engine
+  register: result
+  changed_when: "'was already set on hold' not in result.stdout"
   become: true
