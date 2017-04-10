@@ -14,21 +14,22 @@
     update_cache: yes
   become: true
 
-- name: Install linux-image-extra kernel package
-  package:
-    name: linux-image-extra-virtual
-    state: present
-  become: true
-
-- name: Install required python modules
+- name: Install required packages
   package:
     name: "{{ item }}"
     state: present
   with_items:
+    - linux-image-extra-virtual
     - python-docker
     - python-ipaddress
   become: true
 
-- name: Add * to docker_version
-  set_fact:
-    docker_version: "{{ docker_version }}*"
+- name: Install docker-engine package
+  apt:
+    name: "docker-engine={{ docker_version }}*"
+    state: present
+  become: true
+
+- name: Hold docker-engine package
+  command: apt-mark hold docker-engine
+  become: true

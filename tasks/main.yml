@@ -1,6 +1,10 @@
 # This file is subject to the terms and conditions defined in file 'LICENSE',
 # which is part of this repository.
 ---
+- name: Include storage tasks
+  include: storage.yml
+  when: docker_storage_block_device|default("") != ""
+
 - name: Include debian/ubuntu tasks
   include: debian.yml
   when: ansible_os_family == 'Debian'
@@ -8,26 +12,6 @@
 - name: Include centos/rhel tasks
   include: redhat.yml
   when: ansible_os_family == 'RedHat'
-
-- name: Include storage tasks
-  include: storage.yml
-  when: docker_storage_block_device|default("") != ""
-
-# FIXME: versionlock / pinning
-
-- name: Install docker-engine package with yum
-  yum:
-    name: "docker-engine-{{ docker_version }}"
-    state: present
-  become: true
-  when: ansible_os_family == 'RedHat'
-
-- name: Install docker-engine package with apt
-  apt:
-    name: "docker-engine={{ docker_version }}"
-    state: present
-  become: true
-  when: ansible_os_family == 'Debian'
 
 - name: Create plugins directory
   file:
