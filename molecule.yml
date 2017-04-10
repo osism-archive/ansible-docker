@@ -27,11 +27,6 @@ openstack:
 ansible:
   playbook: playbook.yml
   timeout: 120
-  group_vars:
-    centos:
-      - docker_operator_user: centos
-    ubuntu:
-      - docker_operator_user: ubuntu
 verifier:
   name: testinfra
 molecule:

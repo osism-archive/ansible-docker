@@ -44,6 +44,7 @@
     docker_listen_on_loopback: yes
     docker_run_tests: yes
     docker_as_privileged_user: yes
+    docker_operator_user: "{{ ansible_user }}"
 
   roles:
   - role: ansible-betacloud.docker
@@ -56,6 +57,7 @@
     docker_listen_on_loopback: yes
     docker_run_tests: no
     docker_as_privileged_user: yes
+    docker_operator_user: "{{ ansible_user }}"
 
   roles:
   - role: ansible-betacloud.docker
@@ -67,6 +69,7 @@
     docker_listen_on_loopback: yes
     docker_run_tests: no
     docker_as_privileged_user: yes
+    docker_operator_user: "{{ ansible_user }}"
 
   roles:
   - role: ansible-betacloud.docker
