@@ -45,9 +45,9 @@
   vars:
     docker_configure_cadvisor: yes
     docker_listen_on_loopback: yes
+    docker_operator_user: "{{ ansible_user }}"
     docker_run_tests: yes
     docker_storage_block_device: /dev/loop0
-    docker_as_privileged_user: yes
 
   roles:
     - role: "../../ansible-docker"
@@ -56,12 +56,12 @@
   hosts: all
 
   vars:
-    docker_configure_cadvisor: yes
     cadvisor_type: service
+    docker_configure_cadvisor: yes
     docker_listen_on_loopback: yes
+    docker_operator_user: "{{ ansible_user }}"
     docker_run_tests: no
     docker_storage_block_device: /dev/loop0
-    docker_as_privileged_user: yes
 
   roles:
     - role: "../../ansible-docker"
@@ -72,9 +72,9 @@
   vars:
     docker_configure_cadvisor: no
     docker_listen_on_loopback: yes
+    docker_operator_user: "{{ ansible_user }}"
     docker_run_tests: no
     docker_storage_block_device: /dev/loop0
-    docker_as_privileged_user: yes
 
   roles:
     - role: "../../ansible-docker"

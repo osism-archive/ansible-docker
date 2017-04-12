@@ -3,7 +3,6 @@ docker_listen_on_loopback: no
 docker_operator_user: ""
 docker_run_tests: no
 docker_version: 1.12.6
-docker_as_privileged_user: no
 
 # registry related parameters
 

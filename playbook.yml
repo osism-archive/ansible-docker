@@ -42,9 +42,8 @@
   vars:
     docker_configure_cadvisor: yes
     docker_listen_on_loopback: yes
-    docker_run_tests: yes
-    docker_as_privileged_user: yes
     docker_operator_user: "{{ ansible_user }}"
+    docker_run_tests: yes
 
   roles:
   - role: ansible-betacloud.docker
@@ -52,12 +51,11 @@
 - name: Playbook for role testing (cadvisor type service)
   hosts: all
   vars:
-    docker_configure_cadvisor: yes
     cadvisor_type: service
+    docker_configure_cadvisor: yes
     docker_listen_on_loopback: yes
-    docker_run_tests: no
-    docker_as_privileged_user: yes
     docker_operator_user: "{{ ansible_user }}"
+    docker_run_tests: no
 
   roles:
   - role: ansible-betacloud.docker
@@ -67,9 +65,8 @@
   vars:
     docker_configure_cadvisor: no
     docker_listen_on_loopback: yes
-    docker_run_tests: no
-    docker_as_privileged_user: yes
     docker_operator_user: "{{ ansible_user }}"
+    docker_run_tests: no
 
   roles:
   - role: ansible-betacloud.docker

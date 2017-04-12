@@ -15,4 +15,3 @@
     name: bc-cadvisor
     image: "google/cadvisor:{{ cadvisor_version }}"
     state: absent
-  become: "{{ docker_as_privileged_user }}"
