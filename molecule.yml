@@ -29,6 +29,7 @@ ansible:
   timeout: 120
 verifier:
   name: testinfra
+  enabled: False
 molecule:
   ignore_paths:
     - .git
@@ -39,5 +40,4 @@ molecule:
       - destroy
       - create
       - converge
-      - verify
       - destroy

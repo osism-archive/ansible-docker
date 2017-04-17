@@ -46,7 +46,7 @@
     docker_run_tests: yes
 
   roles:
-  - role: ansible-betacloud.docker
+  - role: ansible-docker
 
 - name: Playbook for role testing (cadvisor type service)
   hosts: all
@@ -58,7 +58,7 @@
     docker_run_tests: no
 
   roles:
-  - role: ansible-betacloud.docker
+  - role: ansible-docker
 
 - name: Playbook for role testing (cadvisor disabled)
   hosts: all
@@ -69,4 +69,4 @@
     docker_run_tests: no
 
   roles:
-  - role: ansible-betacloud.docker
+  - role: ansible-docker

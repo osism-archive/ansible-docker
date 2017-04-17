@@ -5,6 +5,7 @@
 
 # Available environment variables
 #
+# ANSIBLEVERSION
 # OPENRCFILE
 
 # Set default values
@@ -15,5 +16,5 @@ if [[ -e $OPENRCFILE ]]; then
 fi
 
 if [[ -e tox.ini ]]; then
-    tox -e test
+    tox -e ansible$ANSIBLEVERSION
 fi

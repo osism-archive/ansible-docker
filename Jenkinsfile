@@ -11,9 +11,27 @@ node {
       checkout scm
     }
 
-    stage('Test') {
+//    stage('Test 2.1') {
+//      configFileProvider([configFile(fileId: env.OPENRCFILEID, variable: 'OPENRCFILE')]) {
+//        withEnv(["ANSIBLEVERSION=21"]) {
+//          sh 'scripts/test.sh'
+//        }
+//      }
+//    }
+
+    stage('Test 2.2') {
       configFileProvider([configFile(fileId: env.OPENRCFILEID, variable: 'OPENRCFILE')]) {
-        sh 'scripts/test.sh'
+        withEnv(["ANSIBLEVERSION=22"]) {
+          sh 'scripts/test.sh'
+        }
+      }
+    }
+
+    stage('Test 2.3') {
+      configFileProvider([configFile(fileId: env.OPENRCFILEID, variable: 'OPENRCFILE')]) {
+        withEnv(["ANSIBLEVERSION=23"]) {
+          sh 'scripts/test.sh'
+        }
       }
     }
 

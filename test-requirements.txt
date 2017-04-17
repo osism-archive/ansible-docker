@@ -1,3 +1,2 @@
-molecule>=1.23
+molecule>=1.23.3
 shade
-ansible==2.2.0.0
