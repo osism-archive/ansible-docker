@@ -33,7 +33,7 @@
 
 - name: Install docker-engine package
   yum:
-    name: "docker-engine-{{ docker_version }}"
+    name: "docker-engine-{{ docker_version }}.ce"
     state: present
   become: true
 
