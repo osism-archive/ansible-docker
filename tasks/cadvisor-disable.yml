@@ -15,3 +15,4 @@
     name: bc-cadvisor
     image: "google/cadvisor:{{ cadvisor_version }}"
     state: absent
+  connection: paramiko
