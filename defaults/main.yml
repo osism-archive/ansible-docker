@@ -1,8 +1,14 @@
 ---
-docker_listen_on_loopback: no
+# user to add to docker group
 docker_user: "{{ ansible_user }}"
-docker_run_tests: no
+
+# version that should be installed
+
 docker_version: 17.04.0
+
+# service related parameters
+
+docker_listen_on_loopback: no
 
 # registry related parameters
 
@@ -25,3 +31,7 @@ docker_proxy_https: "{{ docker_proxy_http }}"
 docker_proxy_no_proxy:
   - localhost
   - 127.0.0.1
+
+# CI parameters
+
+docker_run_tests: no
