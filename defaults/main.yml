@@ -1,6 +1,6 @@
 ---
 docker_listen_on_loopback: no
-docker_operator_user: ""
+docker_user: "{{ ansible_user }}"
 docker_run_tests: no
 docker_version: 17.04.0
 

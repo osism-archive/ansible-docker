@@ -81,12 +81,12 @@
   include: ufw.yml
   when: ansible_os_family == 'Debian'
 
-- name: Add operator user to docker group
+- name: Add user to docker group
   user:
-    name: "{{ docker_operator_user }}"
+    name: "{{ docker_user }}"
     groups: docker
     append: yes
-  when: docker_operator_user != ""
+  when: docker_user != ""
   become: true
 
 # NOTE: use paramiko connection to force a re-login
@@ -98,7 +98,7 @@
     password: "{{ docker_registry_password }}"
     reauthorize: yes
   when:
-    - docker_operator_user != ""
+    - docker_user != ""
     - docker_registry_username|default("") != ""
     - docker_registry_password|default("") != ""
   connection: paramiko

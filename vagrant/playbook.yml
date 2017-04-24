@@ -33,8 +33,7 @@
 
   vars:
     docker_listen_on_loopback: yes
-    docker_operator_user: "{{ ansible_user }}"
-    docker_run_tests: no
+    docker_run_tests: yes
     docker_storage_block_device: /dev/loop0
 
   roles:
