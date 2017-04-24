@@ -1,23 +1,14 @@
 # This file is subject to the terms and conditions defined in file 'LICENSE',
 # which is part of this repository.
 ---
-- name: Install python version 2
+- name: Install python version 2 on ubuntu
   hosts: ubuntu
   gather_facts: no
   tasks:
-  - name: Install python version 2
+  - name: Install python version 2 on ubuntu
     raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
     register: result
     changed_when: result.rc != 0
-    become: true
-
-- name: Add epel repository on centos
-  hosts: centos
-  tasks:
-  - name: Install epel-release package
-    package:
-      name: http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
-      state: present
     become: true
 
 - name: Prepare block storage device
@@ -37,33 +28,9 @@
     tags:
     - skip_ansible_lint
 
-- name: Playbook for role testing (cadvisor type docker)
+- name: Playbook for role testing
   hosts: all
   vars:
-    docker_configure_cadvisor: yes
-    docker_listen_on_loopback: yes
-    docker_operator_user: "{{ ansible_user }}"
-    docker_run_tests: yes
-
-  roles:
-  - role: ansible-docker
-
-- name: Playbook for role testing (cadvisor type service)
-  hosts: all
-  vars:
-    cadvisor_type: service
-    docker_configure_cadvisor: yes
-    docker_listen_on_loopback: yes
-    docker_operator_user: "{{ ansible_user }}"
-    docker_run_tests: no
-
-  roles:
-  - role: ansible-docker
-
-- name: Playbook for role testing (cadvisor disabled)
-  hosts: all
-  vars:
-    docker_configure_cadvisor: no
     docker_listen_on_loopback: yes
     docker_operator_user: "{{ ansible_user }}"
     docker_run_tests: no

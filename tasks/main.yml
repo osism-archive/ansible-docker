@@ -106,11 +106,3 @@
 - name: Ensure docker is working like expected
   include: test.yml
   when: docker_run_tests|bool
-
-- name: Enable cadvisor
-  include: cadvisor-enable.yml
-  when: docker_configure_cadvisor|bool
-
-- name: Disable cadvisor
-  include: cadvisor-disable.yml
-  when: not docker_configure_cadvisor|bool

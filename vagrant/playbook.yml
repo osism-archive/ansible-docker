@@ -8,17 +8,6 @@
     raw: test -e /usr/bin/python || (test -e /usr/bin/apt && (apt -y update && apt install -y python-minimal))
     become: true
 
-- name: Add epel repository on centos
-  hosts: all
-
-  tasks:
-  - name: Install epel-release package
-    package:
-      name: http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
-      state: present
-    become: true
-    when: ansible_os_family == "RedHat"
-
 - name: Prepare block storage device
   hosts: all
   become: true
@@ -39,38 +28,10 @@
     tags:
     - skip_ansible_lint
 
-- name: Playbook for role testing (cadvisor type docker)
+- name: Playbook for role testing
   hosts: all
 
   vars:
-    docker_configure_cadvisor: yes
-    docker_listen_on_loopback: yes
-    docker_operator_user: "{{ ansible_user }}"
-    docker_run_tests: yes
-    docker_storage_block_device: /dev/loop0
-
-  roles:
-    - role: "../../ansible-docker"
-
-- name: Playbook for role testing (cadvisor type service)
-  hosts: all
-
-  vars:
-    cadvisor_type: service
-    docker_configure_cadvisor: yes
-    docker_listen_on_loopback: yes
-    docker_operator_user: "{{ ansible_user }}"
-    docker_run_tests: no
-    docker_storage_block_device: /dev/loop0
-
-  roles:
-    - role: "../../ansible-docker"
-
-- name: Playbook for role testing (cadvisor disabled)
-  hosts: all
-
-  vars:
-    docker_configure_cadvisor: no
     docker_listen_on_loopback: yes
     docker_operator_user: "{{ ansible_user }}"
     docker_run_tests: no

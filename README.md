@@ -11,11 +11,6 @@ Supported Linux distributions
 * Ubuntu 16.04 (Xenial)
 * CentOS 7
 
-Dependencies
-------------
-
-If Cadvisor with password protection should be used the EPEL repository has to be added on CentOS.
-
 Example Playbook
 ----------------
 
