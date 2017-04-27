@@ -4,7 +4,7 @@ driver:
 openstack:
   keyfile: /ssh/id_rsa
   instances:
-    - name: molecule-betacloud.docker-ubuntu
+    - name: molecule-docker-ubuntu
       image: 'Ubuntu 16.04'
       flavor: vps-ssd-1
       sshuser: ubuntu
@@ -14,7 +14,7 @@ openstack:
         - ubuntu
       security_groups:
         - ssh
-    - name: molecule-betacloud.docker-centos
+    - name: molecule-docker-centos
       image: 'Centos 7'
       flavor: vps-ssd-1
       sshuser: centos
@@ -27,6 +27,9 @@ openstack:
 ansible:
   playbook: playbook.yml
   timeout: 120
+#dependency:
+#  name: galaxy
+#  requirements_file: requirements.yml
 verifier:
   name: testinfra
   enabled: False

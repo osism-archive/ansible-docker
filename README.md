@@ -11,16 +11,6 @@ Supported Linux distributions
 * Ubuntu 16.04 (Xenial)
 * CentOS 7
 
-Example Playbook
-----------------
-
-```yml
-- hosts: all
-
-  roles:
-  - role: betacloud.docker
-```
-
 License
 -------
 

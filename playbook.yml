@@ -6,7 +6,7 @@
   gather_facts: no
   tasks:
   - name: Install python version 2 on ubuntu
-    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+    raw: test -e /usr/bin/python || (test -e /usr/bin/apt && (apt -y update && apt install -y python-minimal))
     register: result
     changed_when: result.rc != 0
     become: true
@@ -33,6 +33,10 @@
   vars:
     docker_listen_on_loopback: yes
     docker_storage_block_device: /dev/loop0
+
+  pre_tasks:
+  - name: Include molecule variables
+    include_vars: vars/molecule.yml
 
   roles:
   - role: ansible-docker

@@ -1,11 +1,15 @@
+# This file is subject to the terms and conditions defined in file 'LICENSE',
+# which is part of this repository.
 ---
-- name: Install python version 2
+- name: Install python version 2 on ubuntu
   hosts: all
   gather_facts: no
 
   tasks:
   - name: Install python version 2 on ubuntu
     raw: test -e /usr/bin/python || (test -e /usr/bin/apt && (apt -y update && apt install -y python-minimal))
+    register: result
+    changed_when: result.rc != 0
     become: true
 
 - name: Prepare block storage device
@@ -36,5 +40,9 @@
     docker_run_tests: yes
     docker_storage_block_device: /dev/loop0
 
+  pre_tasks:
+  - name: Include vagrant variables
+    include_vars: vars/vagrant.yml
+
   roles:
-    - role: "../../ansible-docker"
+    - role: ../../ansible-docker
