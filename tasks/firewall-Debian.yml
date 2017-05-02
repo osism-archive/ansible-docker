@@ -10,12 +10,12 @@
 
 - name: Set docker_configure_ufw fact
   set_fact:
-    docker_configure_ufw: "'Status: active' in ufw_stats.stdout"
+    ufw_active: "'Status: active' in ufw_stats.stdout"
 
 - name: Allow incoming traffic
   ufw:
     interface: docker0
     rule: allow
     direction: in
-  when: docker_configure_ufw|bool
+  when: ufw_active|bool
   become: true

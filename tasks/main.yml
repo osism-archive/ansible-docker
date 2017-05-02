@@ -5,13 +5,8 @@
   include: storage.yml
   when: docker_storage_block_device|default("") != ""
 
-- name: Include debian/ubuntu tasks
-  include: debian.yml
-  when: ansible_os_family == 'Debian'
-
-- name: Include centos/rhel tasks
-  include: redhat.yml
-  when: ansible_os_family == 'RedHat'
+- name: Include distribution specifc tasks
+  include: "{{ ansible_os_family }}.yml"
 
 - name: Create plugins directory
   file:
@@ -77,9 +72,8 @@
   when: ansible_os_family == 'Debian'
   become: true
 
-- name: Include ufw tasks
-  include: ufw.yml
-  when: ansible_os_family == 'Debian'
+- name: Include firewall tasks
+  include: "firewall-{{ ansible_os_family }}.yml"
 
 - name: Add user to docker group
   user:
