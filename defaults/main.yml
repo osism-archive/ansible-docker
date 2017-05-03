@@ -12,7 +12,7 @@ docker_listen_on_loopback: no
 
 # registry related parameters
 
-docker_registry: quay.io
+docker_registry: registry.hub.docker.com
 docker_registry_password: ""
 docker_registry_username: ""
 
