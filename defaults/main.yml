@@ -1,4 +1,6 @@
 ---
+action: deploy
+
 # user to add to docker group
 docker_user: "{{ ansible_user }}"
 

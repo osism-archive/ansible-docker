@@ -1,0 +1,17 @@
+# This file is subject to the terms and conditions defined in file 'LICENSE',
+# which is part of this repository.
+---
+- name: Start/Enable service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: true
+
+- name: Start/Enable docker socket service
+  service:
+    name: docker.socket
+    state: started
+    enabled: yes
+  when: ansible_os_family == 'Debian'
+  become: true

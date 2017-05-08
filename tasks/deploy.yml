@@ -1,0 +1,15 @@
+# This file is subject to the terms and conditions defined in file 'LICENSE',
+# which is part of this repository.
+---
+- include: prepare-storage.yml
+  when: docker_storage_block_device|default("") != ""
+
+- include: "install-{{ ansible_os_family }}.yml"
+
+- include: config.yml
+
+- include: service.yml
+
+- include: bootstrap.yml
+
+- include: "firewall-{{ ansible_os_family }}.yml"
