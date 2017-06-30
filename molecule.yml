@@ -35,7 +35,7 @@ ansible:
   timeout: 120
 #dependency:
 #  name: galaxy
-#  requirements_file: requirements.yml
+#  requirements_file: test-requirements.yml
 verifier:
   name: testinfra
   enabled: False

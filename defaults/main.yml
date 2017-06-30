@@ -6,7 +6,7 @@ docker_user: "{{ ansible_user }}"
 
 # version that should be installed
 
-docker_version: 17.06.0
+docker_version: 17.05.0
 
 # service related parameters
 
