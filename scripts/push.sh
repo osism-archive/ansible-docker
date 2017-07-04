@@ -10,7 +10,6 @@ set -x
 #
 # NEXUS_ARTIFACT_REPOSITORY
 # NEXUS_ARTIFACT_NAME
-# NEXUS_ARTIFACT_TAG
 # NEXUS_USERNAME
 # NEXUS_PASSWORD
 # NEXUS_SERVER
@@ -25,17 +24,11 @@ if [[ -e $NEXUSFILE ]]; then
 fi
 
 HASH=$(git rev-parse --short HEAD)
-NEXUS_ARTIFACT_TAG="$(date '+%Y%m%d-%H%M')-$HASH"
-ARCHIVE=$NEXUS_ARTIFACT_NAME-$NEXUS_ARTIFACT_TAG.tar.gz
+ARCHIVE=$NEXUS_ARTIFACT_NAME-$HASH.tar.gz
 
 if [[ ! -z $(git tag | grep $HASH) ]]; then
     exit 0
 fi
-
-# Push to git server
-
-git tag $NEXUS_ARTIFACT_TAG
-git push --tags
 
 # Remove molecule.yml vars file
 
