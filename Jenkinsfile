@@ -40,6 +40,12 @@ node {
         sh 'scripts/push.sh'
       }
     }
+
+    stage('Destroy') {
+      configFileProvider([configFile(fileId: env.OPENRCFILEID, variable: 'OPENRCFILE')]) {
+        sh 'scripts/destroy.sh'
+      }
+    }
   }
 
   catch (err) {
