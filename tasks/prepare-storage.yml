@@ -5,7 +5,9 @@
   filesystem:
     dev: "{{ docker_storage_block_device }}"
     fstype: "{{ docker_storage_filesystem }}"
+    force: "{{ docker_storage_force }}"
   become: true
+  ignore_errors: true
 
 - name: Create docker directory
   file:
