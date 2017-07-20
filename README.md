@@ -1,9 +1,7 @@
-# Ansible betacloud.docker
+# Ansible osism.docker
 
 ![Ansible 2.2](https://img.shields.io/badge/Ansible-2.2-green.png?style=flat)
 ![Ansible 2.3](https://img.shields.io/badge/Ansible-2.3-green.png?style=flat)
-
-This is an Ansible role that installs Docker on Ubuntu and CentOS servers.
 
 Supported Linux distributions
 -----------------------------
