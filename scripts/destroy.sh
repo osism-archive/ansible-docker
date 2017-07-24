@@ -12,10 +12,12 @@
 # Set default values
 
 OPENRCFILE=${OPENRCFILE:-openrc}
+TOXFILE=tox.ini
+
 if [[ -e $OPENRCFILE ]]; then
     source $OPENRCFILE
 fi
 
-if [[ -e tox.ini ]]; then
+if [[ -e $TOXFILE ]]; then
     tox -e destroy
 fi
