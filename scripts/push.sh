@@ -19,6 +19,7 @@ set -x
 # Set default values
 
 NEXUSFILE=${NEXUSFILE:-nexus}
+
 if [[ -e $NEXUSFILE ]]; then
     source $NEXUSFILE
 fi
