@@ -38,3 +38,11 @@ docker_proxy_no_proxy:
 # CI parameters
 
 docker_run_tests: no
+
+# repository related parameters
+
+docker_debian_repository_key: https://download.docker.com/linux/ubuntu/gpg
+docker_debian_repository: deb https://apt.dockerproject.org/repo ubuntu-xenial main
+
+docker_redhat_repository_key: https://yum.dockerproject.org/gpg
+docker_redhat_repository: "https://yum.dockerproject.org/repo/main/{{ ansible_distribution|lower }}/{{ ansible_distribution_major_version|lower }}"

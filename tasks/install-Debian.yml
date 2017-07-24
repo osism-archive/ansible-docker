@@ -3,13 +3,12 @@
 ---
 - name: Add repository gpg key
   apt_key:
-    keyserver: hkp://p80.pool.sks-keyservers.net:80
-    id: 58118E89F3A912897C070ADBF76221572C52609D
+    url: "{{ docker_debian_repository_key }}"
   become: true
 
 - name: Add repository
   apt_repository:
-    repo: "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
+    repo: "{{ docker_debian_repository }}"
     state: present
     update_cache: yes
   become: true

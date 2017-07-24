@@ -5,9 +5,9 @@
   yum_repository:
     name: docker
     description: "Docker repository"
-    baseurl: "https://yum.dockerproject.org/repo/main/{{ ansible_distribution|lower }}/{{ ansible_distribution_major_version|lower }}"
+    baseurl: "{{ docker_redhat_repository }}"
     state: present
-    gpgkey: https://yum.dockerproject.org/gpg
+    gpgkey: "{{ docker_redhat_repository_key }}"
     gpgcheck: yes
   become: true
 
