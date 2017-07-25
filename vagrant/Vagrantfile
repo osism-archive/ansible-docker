@@ -10,6 +10,11 @@ Vagrant.configure("2") do |config|
         operator_user: 'ubuntu'
       }
     end
+    # NOTE: https://groups.google.com/forum/#!topic/vagrant-up/eZljy-bddoI
+    #       This will remove the ubuntu-xenial-16.04-cloudimg-console.log file
+    ubuntu.vm.provider "virtualbox" do |vb|
+      vb.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
+    end
   end
 
   config.vm.define "centos" do |centos|
