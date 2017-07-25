@@ -46,3 +46,9 @@ docker_debian_repository: deb https://apt.dockerproject.org/repo ubuntu-xenial m
 
 docker_redhat_repository_key: https://yum.dockerproject.org/gpg
 docker_redhat_repository: "https://yum.dockerproject.org/repo/main/{{ ansible_distribution|lower }}/{{ ansible_distribution_major_version|lower }}"
+
+# requirements
+
+docker_python_requirements:
+  - ipaddress
+  - docker

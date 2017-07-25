@@ -16,9 +16,6 @@
     name: "{{ item }}"
     state: present
   with_items:
-    - python-docker-py
-    - python-ipaddr
-    - python-ipaddress
     - yum-plugin-versionlock
   become: true
 

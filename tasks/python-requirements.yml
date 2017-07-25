@@ -1,0 +1,16 @@
+# This file is subject to the terms and conditions defined in file 'LICENSE',
+# which is part of this repository.
+---
+- name: Upgrade pip
+  pip:
+    name: pip
+    state: latest
+  become: true
+
+- name: Install required python packages
+  shell: |
+    pip install '{{ item }}'
+  args:
+    executable: /bin/bash
+  with_items: "{{ docker_python_requirements }}"
+  become: true
