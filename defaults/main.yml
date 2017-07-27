@@ -51,4 +51,4 @@ docker_redhat_repository: "https://yum.dockerproject.org/repo/main/{{ ansible_di
 
 docker_python_requirements:
   - ipaddress
-  - docker
+  - docker-py
