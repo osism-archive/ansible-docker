@@ -21,7 +21,7 @@ docker_registry_username: ""
 # storage driver related parameters
 
 docker_configure_storage_driver: no
-docker_storage_driver: overlay
+docker_storage_driver: overlay2
 docker_storage_block_device: ""
 docker_storage_filesystem: ext4
 docker_storage_force: no
