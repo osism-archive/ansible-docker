@@ -1,24 +1,22 @@
 ---
-action: deploy
+docker_action: deploy
 
-# user to add to docker group
-docker_user: "{{ ansible_user }}"
-
-# version that should be installed
-
-docker_version: 17.05.0
-
-# service related parameters
+##########################
+# generic
 
 docker_listen_on_loopback: no
+docker_user: "{{ ansible_user }}"
+docker_version: 17.05.0
 
-# registry related parameters
+##########################
+# registry
 
 docker_registry: registry.hub.docker.com
 docker_registry_password: ""
 docker_registry_username: ""
 
-# storage driver related parameters
+##########################
+# storage driver
 
 docker_configure_storage_driver: no
 docker_storage_driver: overlay2
@@ -26,7 +24,8 @@ docker_storage_block_device: ""
 docker_storage_filesystem: ext4
 docker_storage_force: no
 
-# proxy related parameters
+##########################
+# proxy
 
 docker_configure_proxy: no
 docker_proxy_http: "http://proxy.tld:8080"
@@ -35,11 +34,8 @@ docker_proxy_no_proxy:
   - localhost
   - 127.0.0.1
 
-# CI parameters
-
-docker_run_tests: no
-
-# repository related parameters
+##########################
+# repository
 
 docker_debian_repository_key: https://apt.dockerproject.org/gpg
 docker_debian_repository: deb https://apt.dockerproject.org/repo ubuntu-xenial main
@@ -47,6 +43,7 @@ docker_debian_repository: deb https://apt.dockerproject.org/repo ubuntu-xenial m
 docker_redhat_repository_key: https://yum.dockerproject.org/gpg
 docker_redhat_repository: "https://yum.dockerproject.org/repo/main/{{ ansible_distribution|lower }}/{{ ansible_distribution_major_version|lower }}"
 
+##########################
 # requirements
 
 docker_python_requirements:
