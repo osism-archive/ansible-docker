@@ -19,6 +19,7 @@ docker_registry_username: ""
 # storage driver
 
 docker_configure_storage_driver: no
+
 docker_storage_driver: overlay2
 docker_storage_block_device: ""
 docker_storage_filesystem: ext4
@@ -28,6 +29,7 @@ docker_storage_force: no
 # proxy
 
 docker_configure_proxy: no
+
 docker_proxy_http: "http://proxy.tld:8080"
 docker_proxy_https: "{{ docker_proxy_http }}"
 docker_proxy_no_proxy:
@@ -36,6 +38,8 @@ docker_proxy_no_proxy:
 
 ##########################
 # repository
+
+docker_configure_repository: yes
 
 docker_debian_repository_key: https://apt.dockerproject.org/gpg
 docker_debian_repository: deb https://apt.dockerproject.org/repo ubuntu-xenial main

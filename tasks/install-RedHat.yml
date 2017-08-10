@@ -10,6 +10,7 @@
     gpgkey: "{{ docker_redhat_repository_key }}"
     gpgcheck: yes
   become: true
+  when: docker_configure_repository|bool
 
 - name: Install required packages
   package:

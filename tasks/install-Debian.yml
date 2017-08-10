@@ -5,6 +5,7 @@
   apt_key:
     url: "{{ docker_debian_repository_key }}"
   become: true
+  when: docker_configure_repository|bool
 
 - name: Add repository
   apt_repository:
@@ -12,6 +13,7 @@
     state: present
     update_cache: yes
   become: true
+  when: docker_configure_repository|bool
 
 - name: Install required packages
   package:
