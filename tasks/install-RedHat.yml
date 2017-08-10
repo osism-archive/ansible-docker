@@ -15,9 +15,8 @@
   package:
     name: "{{ item }}"
     state: present
-  with_items:
-    - yum-plugin-versionlock
   become: true
+  with_items: "{{ docker_required_packages }}"
 
 - name: Unlock docker-engine package
   command: yum versionlock del docker-engine

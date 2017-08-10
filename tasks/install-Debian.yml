@@ -17,9 +17,8 @@
   package:
     name: "{{ item }}"
     state: present
-  with_items:
-    - linux-image-extra-virtual
   become: true
+  with_items: "{{ docker_required_packages }}"
 
 - name: Install docker-engine package
   apt:

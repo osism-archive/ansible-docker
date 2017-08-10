@@ -6,8 +6,6 @@
 
 - include: "install-{{ ansible_os_family }}.yml"
 
-- include: python-requirements.yml
-
 - include: config.yml
 
 - include: service.yml

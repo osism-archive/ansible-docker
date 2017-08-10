@@ -1,2 +1,4 @@
 ---
-package_pip: python-pip
+docker_required_packages:
+  - linux-image-extra-virtual
+  - python-docker
