@@ -5,7 +5,7 @@
 [Service]
 MountFlags=shared
 ExecStart=
-ExecStart=/usr/bin/dockerd -H unix:///var/run/docker.sock{% if docker_listen_on_loopback|bool %} -H 127.0.0.1{% endif %}{% if docker_configure_storage_driver|bool %} --storage-driver={{ docker_storage_driver }}{% endif %} {{ docker_parameters|default("") }}
+ExecStart=/usr/bin/dockerd -H unix:///var/run/docker.sock{% if docker_listen_on_loopback|bool %} -H 127.0.0.1{% endif %}{% if docker_configure_storage_driver|bool %} --storage-driver={{ docker_storage_driver }}{% endif %}{% if docker_configure_insecure_registry|bool %} --insecure-registry={{ docker_insecure_registry }}{% endif %} {{ docker_parameters|default("") }}
 {% if docker_configure_proxy|bool %}
 Environment="HTTP_PROXY={{ docker_proxy_http }}" "HTTPS_PROXY={{ docker_proxy_https }}" "NO_PROXY={{ docker_proxy_no_proxy|join(',') }}"
 {% endif %}

@@ -11,9 +11,12 @@ docker_version: 17.05.0
 ##########################
 # registry
 
-docker_registry: registry.hub.docker.com
+docker_registry: index.docker.io
 docker_registry_password: ""
 docker_registry_username: ""
+
+docker_configure_insecure_registry: yes
+docker_insecure_registry: registry.osism.io
 
 ##########################
 # storage driver
