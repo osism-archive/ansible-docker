@@ -1,8 +1,8 @@
 # This file is subject to the terms and conditions defined in file 'LICENSE',
 # which is part of this repository.
 ---
-- include: prepare-storage.yml
-  when: docker_storage_block_device|default("") != ""
+- include: storage.yml
+  when: docker_configure_storage_block_device|bool
 
 - include: "install-{{ ansible_os_family }}.yml"
 

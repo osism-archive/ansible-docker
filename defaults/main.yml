@@ -24,7 +24,13 @@ docker_insecure_registry: registry.osism.io
 docker_configure_storage_driver: no
 
 docker_storage_driver: overlay2
-docker_storage_block_device: ""
+
+##########################
+# storage block device
+
+docker_configure_storage_block_device: no
+
+docker_storage_block_device: /dev/sdb
 docker_storage_filesystem: ext4
 docker_storage_force: no
 
