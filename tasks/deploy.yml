@@ -11,5 +11,3 @@
 - include: service.yml
 
 - include: bootstrap.yml
-
-- include: "firewall-{{ ansible_os_family }}.yml"
