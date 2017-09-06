@@ -1,0 +1,9 @@
+---
+sudo: required
+language: python
+services:
+  - docker
+install:
+  - pip install -r test-requirements.txt
+script:
+  - tox

@@ -1,17 +1,17 @@
 ---
 galaxy_info:
   author: Christian Berendt
-  description: Role to install Docker.
+  description: Role osism.docker
   company: Betacloud Solutions GmbH
   license: Apache License 2.0
   min_ansible_version: 2.2
   platforms:
-  - name: Ubuntu
-    versions:
-    - xenial
-  - name: EL
-    versions:
-    - 7
+    - name: Ubuntu
+      versions:
+        - xenial
+    - name: EL
+      versions:
+        - 7
   galaxy_tags:
-  - system
+    - system
   dependencies: []

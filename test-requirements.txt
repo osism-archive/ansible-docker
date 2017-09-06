@@ -1,2 +1,3 @@
-molecule>=1.23.3
-shade
+molecule>=2.0
+docker
+tox

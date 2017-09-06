@@ -5,7 +5,7 @@ docker_action: deploy
 # generic
 
 docker_listen_on_loopback: no
-docker_user: "{{ ansible_user }}"
+docker_user: dragon
 docker_version: 17.05.0
 
 ##########################
