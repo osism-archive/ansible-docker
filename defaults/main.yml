@@ -15,8 +15,9 @@ docker_registry: index.docker.io
 docker_registry_password: ""
 docker_registry_username: ""
 
-docker_configure_insecure_registry: yes
-docker_insecure_registry: registry.osism.io
+docker_configure_insecure_registries: yes
+docker_insecure_registries:
+  - registry.osism.io
 
 ##########################
 # storage driver
