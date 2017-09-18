@@ -3,3 +3,5 @@
 *.retry
 tests/__pycache__
 .cache
+roles
+.vagrant
