@@ -6,7 +6,7 @@ docker_action: deploy
 
 docker_listen_on_loopback: no
 docker_user: dragon
-docker_version: 17.05.0
+docker_version: 17.09.0
 
 ##########################
 # registry
