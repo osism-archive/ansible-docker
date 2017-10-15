@@ -22,14 +22,14 @@
   become: true
   with_items: "{{ docker_required_packages }}"
 
-- name: Install docker-engine package
+- name: Install package
   apt:
-    name: "docker-engine={{ docker_version }}*"
+    name: "{{ docker_package_name }}={{ docker_version }}*"
     state: present
   become: true
 
-- name: Hold docker-engine package
-  command: apt-mark hold docker-engine
+- name: Hold package
+  command: "apt-mark hold {{ docker_package_name }}"
   register: result
   changed_when: "'was already set on hold' not in result.stdout"
   become: true

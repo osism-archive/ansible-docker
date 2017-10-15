@@ -19,8 +19,8 @@
   become: true
   with_items: "{{ docker_required_packages }}"
 
-- name: Unlock docker-engine package
-  command: yum versionlock del docker-engine
+- name: Unlock package
+  command: "yum versionlock del {{ docker_package_name }}"
   register: result
   changed_when: "'versionlock deleted: 1' in result.stdout"
   failed_when: result.rc not in [0,1]
@@ -28,14 +28,14 @@
   tags:
     - skip_ansible_lint
 
-- name: Install docker-engine package
+- name: Install package
   yum:
-    name: "docker-engine-{{ docker_version }}.ce"
+    name: "{{ docker_engine_package }}-{{ docker_version }}.ce"
     state: present
   become: true
 
-- name: Lock docker-engine package
-  command: yum versionlock add docker-engine
+- name: Lock package
+  command: "yum versionlock add {{ docker_package_name }}"
   register: result
   changed_when: "'versionlock added: 1' in result.stdout"
   become: true

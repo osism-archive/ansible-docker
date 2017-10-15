@@ -6,6 +6,11 @@ docker_action: deploy
 
 docker_listen_on_loopback: no
 docker_user: dragon
+
+##########################
+# package
+
+docker_package_name: docker-ce
 docker_version: 17.09.0
 
 ##########################
