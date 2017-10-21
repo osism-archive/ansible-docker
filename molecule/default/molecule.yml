@@ -2,20 +2,25 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: delegated
+  options:
+    managed: False
+    login_cmd_template: bash
+    ansible_connection_options:
+      ansible_connection: local
+#    login_cmd_template: 'docker exec -ti {instance} bash'
+#    ansible_connection_options:
+#      ansible_connection: docker
 lint:
   name: yamllint
   options:
     config-file: molecule/default/yamllint.yml
+# NOTE: Start the required container with the following command
+# docker run -d --name osism-systemd --hostname osism-systemd \
+#   --security-opt seccomp=unconfined --tmpfs /run --tmpfs /run/lock \
+#   -v /sys/fs/cgroup:/sys/fs/cgroup:ro -t solita/ubuntu-systemd:16.04
 platforms:
-  - name: molecule-ubuntu-docker
-    image: solita/ubuntu-systemd
-    image_version: 16.04
-    command: /sbin/init
-  - name: molecule-centos-docker
-    image: centos/systemd
-    image_version: latest
-    command: /usr/sbin/init
+  - name: osism-systemd
 provisioner:
   name: ansible
   lint:

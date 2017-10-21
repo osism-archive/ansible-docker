@@ -1,0 +1,35 @@
+---
+- name: Install python2
+  hosts: all
+  gather_facts: no
+
+  tasks:
+  - name: Install python2
+    raw: test -e /usr/bin/python || (test -e /usr/bin/apt && (apt -y update && apt install -y python-minimal))
+    register: result
+    changed_when: result.rc != 0
+
+- name: Playbook for preparations
+  hosts: all
+
+  tasks:
+    - name: Install apt-transport-https package
+      package:
+        name: apt-transport-https
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Add epel repository
+      yum_repository:
+        name: epel
+        description: EPEL
+        baseurl: "https://download.fedoraproject.org/pub/epel/$releasever/$basearch/"
+        gpgkey: "https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7"
+      when: ansible_os_family == 'RedHat'
+
+    - name: Install required packages
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - sudo

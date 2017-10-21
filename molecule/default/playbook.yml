@@ -3,26 +3,10 @@
   hosts: all
 
   vars:
+    docker_user: root
     docker_configure_proxy: yes
     docker_configure_storage_driver: yes
     docker_listen_on_loopback: yes
-
-  pre_tasks:
-    - name: Install apt-transport-https package
-      package:
-        name: apt-transport-https
-        state: present
-      become: true
-      when: ansible_os_family == 'Debian'
-
-    - name: Add epel repository
-      yum_repository:
-        name: epel
-        description: EPEL
-        baseurl: "https://download.fedoraproject.org/pub/epel/$releasever/$basearch/"
-        gpgkey: "https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7"
-      become: true
-      when: ansible_os_family == 'RedHat'
 
   roles:
     - role: ansible-docker

@@ -2,14 +2,14 @@
 
 [![Build Status](https://travis-ci.org/osism/ansible-docker.svg?branch=master)](https://travis-ci.org/osism/ansible-docker)
 [![Ansible Galaxy](https://img.shields.io/badge/Ansible%20Galaxy-osism.docker-blue.svg)](https://galaxy.ansible.com/osism/docker/)
-![Ansible 2.2](https://img.shields.io/badge/Ansible-2.2-green.png?style=flat)
 ![Ansible 2.3](https://img.shields.io/badge/Ansible-2.3-green.png?style=flat)
+![Ansible 2.4](https://img.shields.io/badge/Ansible-2.4-green.png?style=flat)
 
 Supported Linux distributions
 -----------------------------
 
 * Ubuntu 16.04 (Xenial)
-* CentOS 7
+* CentOS 7 (untested)
 
 License
 -------
