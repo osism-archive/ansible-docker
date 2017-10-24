@@ -4,8 +4,19 @@ docker_action: deploy
 ##########################
 # generic
 
-docker_listen_on_loopback: no
+docker_debug: "false"
+docker_experimental: "false"
+docker_ipv6: "false"
+docker_log_driver: "json-file"
+docker_log_level: info
 docker_user: dragon
+
+##########################
+# hosts
+
+docker_hosts:
+  - "unix:///var/run/docker.sock"
+  - "tcp://127.0.0.1:2375"
 
 ##########################
 # package
@@ -20,15 +31,13 @@ docker_registry: index.docker.io
 docker_registry_password: ""
 docker_registry_username: ""
 
-docker_configure_insecure_registries: yes
 docker_insecure_registries:
   - registry-1.osism.io
 
 ##########################
 # storage driver
 
-docker_configure_storage_driver: no
-
+# NOTE: overlay2 is the default choice for Docker CE
 docker_storage_driver: overlay2
 
 ##########################

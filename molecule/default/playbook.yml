@@ -4,9 +4,6 @@
 
   vars:
     docker_user: root
-    docker_configure_proxy: yes
-    docker_configure_storage_driver: yes
-    docker_listen_on_loopback: yes
 
   roles:
     - role: ansible-docker

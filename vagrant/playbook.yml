@@ -21,6 +21,8 @@
 
   vars:
     docker_user: ubuntu
+    docker_parameters: "--live-restore"
+    docker_debug: "true"
 
   roles:
     - role: ../../ansible-docker
