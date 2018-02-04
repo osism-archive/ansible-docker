@@ -2,8 +2,5 @@
 - name: Playbook for role testing
   hosts: all
 
-  vars:
-    docker_user: root
-
   roles:
     - role: ansible-docker

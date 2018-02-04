@@ -1,7 +1,5 @@
 .molecule
 .tox
-*.retry
-tests/__pycache__
-.cache
-roles
 .vagrant
+roles
+clouds.yml
