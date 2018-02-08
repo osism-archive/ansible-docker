@@ -2,6 +2,8 @@
 - include: storage.yml
   when: docker_configure_storage_block_device|bool
 
+- include: "install.yml"
+
 - include: "install-{{ ansible_os_family }}.yml"
 
 - include: config.yml
