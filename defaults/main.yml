@@ -67,6 +67,3 @@ docker_configure_repository: yes
 
 docker_debian_repository_key: https://download.docker.com/linux/ubuntu/gpg
 docker_debian_repository: deb https://download.docker.com/linux/ubuntu xenial stable
-
-docker_redhat_repository_key: https://download.docker.com/linux/centos/gpg
-docker_redhat_repository: "https://download.docker.com/linux/{{ ansible_distribution|lower }}/{{ ansible_distribution_major_version|lower }}"

@@ -9,7 +9,6 @@ Supported Linux distributions
 -----------------------------
 
 * Ubuntu 16.04 (Xenial)
-* CentOS 7 (untested)
 
 License
 -------
