@@ -31,3 +31,15 @@
   register: result
   changed_when: "'was already set on hold' not in result.stdout"
   become: true
+
+- name: Ensure docker-compose is not installed
+  apt:
+    name: docker-compose
+    state: absent
+  become: true
+
+- name: Set hold on docker-compose package
+  command: apt-mark hold docker-compose
+  register: result
+  changed_when: "'was already set on hold' not in result.stdout"
+  become: true

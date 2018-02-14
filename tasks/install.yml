@@ -1,16 +1,4 @@
 ---
-- name: docker - ensure docker-compose is not installed
-  apt:
-    name: docker-compose
-    state: absent
-  become: true
-
-- name: docker - set hold on docker-compose package
-  command: apt-mark hold docker-compose
-  register: result
-  changed_when: "'was already set on hold' not in result.stdout"
-  become: true
-
 - name: docker - copy docker-compose binary
   copy:
     src: docker-compose
