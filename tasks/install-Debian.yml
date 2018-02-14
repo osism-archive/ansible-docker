@@ -1,4 +1,10 @@
 ---
+- name: docker - install apt-transport-https package
+  package:
+    name: apt-transport-https
+    state: present
+  become: true
+
 - name: docker - add repository gpg key
   apt_key:
     url: "{{ docker_debian_repository_key }}"
@@ -20,6 +26,15 @@
   become: true
   with_items: "{{ docker_required_packages }}"
 
+- name: docker - pin package version
+  copy:
+    content: |
+      Package: {{ docker_package_name }}
+      Pin: version {{ docker_version }}*
+      Pin-Priority: 1001
+    dest: /etc/apt/preferences.d/docker
+  become: true
+
 - name: docker - install package
   apt:
     name: "{{ docker_package_name }}={{ docker_version }}*"
@@ -38,8 +53,11 @@
     state: absent
   become: true
 
-- name: docker - set hold on docker-compose package
-  command: apt-mark hold docker-compose
-  register: result
-  changed_when: "'was already set on hold' not in result.stdout"
+- name: docker - block installation of docker-compose package
+  copy:
+    content: |
+      Package: docker-compose
+      Pin: version *
+      Pin-Priority: -1
+    dest: /etc/apt/preferences.d/docker-compose
   become: true

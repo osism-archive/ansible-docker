@@ -1,4 +1,0 @@
----
-docker_required_packages:
-  - python-docker
-  - yum-plugin-versionlock
