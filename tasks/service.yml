@@ -1,12 +1,12 @@
 ---
-- name: Start/Enable service
+- name: docker - start/enable service
   service:
     name: docker
     state: started
     enabled: yes
   become: true
 
-- name: Start/Enable docker socket service
+- name: docker - start/enable docker socket service
   service:
     name: docker.socket
     state: started

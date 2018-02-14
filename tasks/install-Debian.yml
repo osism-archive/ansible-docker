@@ -1,11 +1,11 @@
 ---
-- name: Add repository gpg key
+- name: docker - add repository gpg key
   apt_key:
     url: "{{ docker_debian_repository_key }}"
   become: true
   when: docker_configure_repository|bool
 
-- name: Add repository
+- name: docker - add repository
   apt_repository:
     repo: "{{ docker_debian_repository }}"
     state: present
@@ -13,32 +13,32 @@
   become: true
   when: docker_configure_repository|bool
 
-- name: Install required packages
+- name: docker - install required packages
   package:
     name: "{{ item }}"
     state: present
   become: true
   with_items: "{{ docker_required_packages }}"
 
-- name: Install package
+- name: docker - install package
   apt:
     name: "{{ docker_package_name }}={{ docker_version }}*"
     state: present
   become: true
 
-- name: Hold package
+- name: docker - hold package
   command: "apt-mark hold {{ docker_package_name }}"
   register: result
   changed_when: "'was already set on hold' not in result.stdout"
   become: true
 
-- name: Ensure docker-compose is not installed
+- name: docker - ensure docker-compose is not installed
   apt:
     name: docker-compose
     state: absent
   become: true
 
-- name: Set hold on docker-compose package
+- name: docker - set hold on docker-compose package
   command: apt-mark hold docker-compose
   register: result
   changed_when: "'was already set on hold' not in result.stdout"

@@ -1,5 +1,5 @@
 ---
-- name: Create filesystem on storage block device
+- name: docker - create filesystem on storage block device
   filesystem:
     dev: "{{ docker_storage_block_device }}"
     fstype: "{{ docker_storage_filesystem }}"
@@ -7,7 +7,7 @@
   become: true
   ignore_errors: true
 
-- name: Create docker directory
+- name: docker - create docker directory
   file:
     path: /var/lib/docker
     state: directory
@@ -18,7 +18,7 @@
   tags:
     - skip_ansible_lint
 
-- name: Mount storage block device to docker directory
+- name: docker - mount storage block device to docker directory
   mount:
     # NOTE: changes to path after 2.3
     name: /var/lib/docker
