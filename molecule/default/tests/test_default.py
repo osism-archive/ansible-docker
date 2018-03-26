@@ -20,3 +20,12 @@ def test_limits_file(host):
     f = host.file("/etc/security/limits.d/docker.conf")
     assert f.exists
     assert f.is_file
+
+
+def test_docker_sock_file(host):
+    f = host.file("/var/run/docker.sock")
+    assert f.exists
+    assert f.is_socket
+
+    s = host.socket("unix:///var/run/docker.sock")
+    assert s.is_listening
