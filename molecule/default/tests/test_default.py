@@ -35,3 +35,10 @@ def test_docker_socket(host):
 
     o = host.socket("unix:///var/run/docker.sock")
     assert o.is_listening
+
+
+def test_docker_user_group(host):
+    user = host.user("dragon")
+    assert user.name == "dragon"
+    assert user.group == "dragon"
+    assert 'docker' in user.groups
