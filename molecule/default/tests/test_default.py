@@ -37,21 +37,15 @@ def test_docker_socket(host):
     assert o.is_listening
 
 
-def test_docker_storage_mountpoint_owner_mode(host):
+def test_docker_mountpoint(host, AnsibleDefaults):
     f = host.file("/var/lib/docker")
-
+    assert f.exists
     assert f.is_directory
     assert f.user == "root"
     assert f.group == "root"
     assert f.mode == 0o711
 
-
-def test_docker_storage_mountpoint(host):
-    f = host.mount_point("/var/lib/docker")
-    assert f.exists
-    assert f.filesystem
-
-    mountpoints = host.mount_point.get_mountpoints()
-    assert mountpoints
-    assert all(isinstance(m, host.mount_point) for m in mountpoints)
-    assert len([m for m in mountpoints if m.path == "/var/lib/docker"]) == 1
+    m = host.mount_point("/var/lib/docker")
+    assert m.exists
+    assert m.device == "/dev/loop0"
+    assert m.filesystem == AnsibleDefaults["docker_storage_filesystem"]
