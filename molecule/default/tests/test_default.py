@@ -16,6 +16,12 @@ def test_systemd_overlay_file(host):
     assert f.is_file
 
 
+def test_docker_package(host, AnsibleDefaults):
+    p = host.package(AnsibleDefaults["docker_package_name"])
+    assert p.is_installed
+    assert p.version.startswith(AnsibleDefaults["docker_version"])
+
+
 def test_limits_file(host):
     f = host.file("/etc/security/limits.d/docker.conf")
     assert f.exists
