@@ -1,3 +1,11 @@
+import pytest
+
+
+@pytest.fixture()
+def AnsibleDefaults(host):
+    return host.ansible("include_vars", "defaults.yml")["ansible_facts"]
+
+
 def test_apt_preferences_docker_compose_file(host):
     f = host.file("/etc/apt/preferences.d/docker-compose")
     assert f.exists
@@ -45,8 +53,8 @@ def test_docker_socket_tcp(host):
     assert s.is_listening
 
 
-def test_docker_user_group(host):
-    user = host.user("dragon")
-    assert user.name == "dragon"
-    assert user.group == "dragon"
-    assert 'docker' in user.groups
+def test_docker_user_group(host, AnsibleDefaults):
+    user = host.user(AnsibleDefaults["docker_user"])
+    assert user.name == AnsibleDefaults["docker_user"]
+    assert user.group == AnsibleDefaults["docker_user"]
+    assert "docker" in user.groups
