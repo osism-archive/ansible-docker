@@ -35,3 +35,9 @@ def test_docker_socket(host):
 
     o = host.socket("unix:///var/run/docker.sock")
     assert o.is_listening
+
+
+def test_var_test(host):
+    all_vars = host.ansible.get_variables()
+    assert 'docker_package_name' in all_vars
+    assert all_vars['docker_package_name'] == 'docker-ce'
