@@ -54,6 +54,20 @@ def test_docker_socket_unix(host):
     assert f.is_socket
 
 
+def test_docker_mountpoint(host, AnsibleDefaults):
+    f = host.file("/var/lib/docker")
+    assert f.exists
+    assert f.is_directory
+    assert f.user == "root"
+    assert f.group == "root"
+    assert f.mode == 0o711
+
+    m = host.mount_point("/var/lib/docker")
+    assert m.exists
+    assert m.device == "/dev/loop0"
+    assert m.filesystem == AnsibleDefaults["docker_storage_filesystem"]
+
+
 def test_docker_socket_tcp(host):
     s = host.socket("tcp://127.0.0.1:2375")
     assert s.is_listening
