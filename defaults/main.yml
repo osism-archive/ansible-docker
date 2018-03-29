@@ -22,6 +22,11 @@ docker_hosts:
 # package
 
 docker_package_name: docker-ce
+
+##########################
+# versions
+
+docker_compose_version: 1.18.0
 docker_version: 17.12.1
 
 ##########################
