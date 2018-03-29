@@ -16,5 +16,20 @@
 - name: Playbook for role preparations
   hosts: all
 
-  roles: []
-  tasks: []
+  vars:
+    device_size: 1G
+    device_file: /tmp/docker.img
+    device_name: loop0
+
+  tasks:
+    - name: Load loop kernel module
+      modprobe:
+        name: loop
+      become: true
+
+    - name: Create loopback device image
+      command: fallocate -l {{ device_size }} {{ device_file }} creates={{ device_file }}
+
+    - name: Setup loopback device
+      command: losetup /dev/{{ device_name }} {{ device_file }}
+      become: true
