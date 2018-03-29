@@ -2,4 +2,5 @@
 - name: Include distribution specific variables
   include_vars: "vars/{{ ansible_os_family }}.yml"
 
-- include: "{{ docker_action }}.yml"
+- name: Include action specific tasks
+  include: "{{ docker_action }}.yml"
