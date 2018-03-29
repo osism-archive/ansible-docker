@@ -64,3 +64,26 @@ def test_docker_user_group(host, AnsibleDefaults):
     assert user.name == AnsibleDefaults["docker_user"]
     assert user.group == AnsibleDefaults["docker_user"]
     assert "docker" in user.groups
+
+
+def test_docker_compose_package(host):
+    try:
+        p = host.package("docker-compose")
+        assert not p.is_installed
+    except:
+        assert True
+
+
+def test_docker_compose_file(host):
+    f = host.file("/usr/local/bin/docker-compose")
+    assert f.exists
+    assert f.is_file
+    assert f.user == "root"
+    assert f.group == "root"
+    assert f.mode == 0o755
+
+
+def test_docker_compose_version(host, AnsibleDefaults):
+    version_output = host.check_output('docker-compose version')
+    assert "docker-compose version %s, build" % (
+        AnsibleDefaults["docker_compose_version"]) in version_output
