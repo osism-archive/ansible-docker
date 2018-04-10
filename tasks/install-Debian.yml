@@ -41,12 +41,6 @@
     state: present
   become: true
 
-- name: docker - hold package
-  command: "apt-mark hold {{ docker_package_name }}"
-  register: result
-  changed_when: "'was already set on hold' not in result.stdout"
-  become: true
-
 - name: docker - ensure docker-compose is not installed
   apt:
     name: docker-compose
