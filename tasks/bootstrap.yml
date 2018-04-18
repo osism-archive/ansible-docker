@@ -1,5 +1,5 @@
 ---
-- name: docker - add user to docker group
+- name: Add user to docker group
   user:
     name: "{{ docker_user }}"
     groups: docker
@@ -9,7 +9,7 @@
 
 # NOTE: use paramiko connection to force a re-login
 
-- name: docker log into private registry and force re-authorization
+- name: Log into private registry and force re-authorization
   docker_login:
     registry: "{{ docker_registry }}"
     username: "{{ docker_registry_username }}"
