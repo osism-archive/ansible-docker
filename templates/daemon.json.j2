@@ -6,5 +6,10 @@
     "ipv6": {{ docker_ipv6 }},
     "log-driver": "{{ docker_log_driver }}",
     "log-level": "{{ docker_log_level }}",
+    "log-opts": {
+{% for item in docker_log_opts %}
+      "{{ item }}": "{{ docker_log_opts[item] }}"{% if not loop.last %}, {% endif %}
+{% endfor %}
+    },
     "storage-driver": "{{ docker_storage_driver }}"
 }
