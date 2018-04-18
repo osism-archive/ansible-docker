@@ -1,5 +1,5 @@
 ---
-- name: docker - create plugins directory
+- name: Create plugins directory
   file:
     path: /etc/docker/plugins
     state: directory
@@ -8,7 +8,7 @@
     mode: 0755
   become: true
 
-- name: docker - create systemd overlay directory
+- name: Create systemd overlay directory
   file:
     path: /etc/systemd/system/docker.service.d
     state: directory
@@ -17,7 +17,7 @@
     mode: 0755
   become: true
 
-- name: docker - copy systemd overlay file
+- name: Copy systemd overlay file
   template:
     src: overlay.conf.j2
     dest: /etc/systemd/system/docker.service.d/overlay.conf
@@ -27,7 +27,7 @@
   notify: Restart docker service
   become: true
 
-- name: docker - copy limits configuration file
+- name: Copy limits configuration file
   copy:
     src: limits.conf
     dest: /etc/security/limits.d/docker.conf
@@ -36,7 +36,7 @@
     mode: 0644
   become: true
 
-- name: docker - copy daemon.json configuration file
+- name: Copy daemon.json configuration file
   template:
     src: daemon.json.j2
     dest: /etc/docker/daemon.json
@@ -46,5 +46,5 @@
   notify: Restart docker service
   become: true
 
-- name: docker - flush handlers
+- name: Flush handlers
   meta: flush_handlers

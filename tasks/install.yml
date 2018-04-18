@@ -1,5 +1,5 @@
 ---
-- name: docker - copy docker-compose binary
+- name: Copy docker-compose binary
   copy:
     src: docker-compose
     dest: /usr/local/bin/docker-compose

@@ -1,17 +1,17 @@
 ---
-- name: docker - install apt-transport-https package
+- name: Install apt-transport-https package
   package:
     name: apt-transport-https
     state: present
   become: true
 
-- name: docker - add repository gpg key
+- name: Add repository gpg key
   apt_key:
     url: "{{ docker_debian_repository_key }}"
   become: true
   when: docker_configure_repository|bool
 
-- name: docker - add repository
+- name: Add repository
   apt_repository:
     repo: "{{ docker_debian_repository }}"
     state: present
@@ -19,14 +19,14 @@
   become: true
   when: docker_configure_repository|bool
 
-- name: docker - install required packages
+- name: Install required packages
   package:
     name: "{{ item }}"
     state: present
   become: true
   with_items: "{{ docker_required_packages }}"
 
-- name: docker - pin package version
+- name: Pin package version
   copy:
     content: |
       Package: {{ docker_package_name }}
@@ -35,19 +35,19 @@
     dest: /etc/apt/preferences.d/docker
   become: true
 
-- name: docker - install package
+- name: Install package
   apt:
     name: "{{ docker_package_name }}={{ docker_version }}*"
     state: present
   become: true
 
-- name: docker - ensure docker-compose is not installed
+- name: Ensure docker-compose is not installed
   apt:
     name: docker-compose
     state: absent
   become: true
 
-- name: docker - block installation of docker-compose package
+- name: Block installation of docker-compose package
   copy:
     content: |
       Package: docker-compose
