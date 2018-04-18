@@ -7,9 +7,16 @@ docker_action: deploy
 docker_debug: "false"
 docker_experimental: "false"
 docker_ipv6: "false"
+docker_user: dragon
+
+##########################
+# logging
+
 docker_log_driver: "json-file"
 docker_log_level: info
-docker_user: dragon
+docker_log_opts:
+  max-size: 10m
+  max-file: 3
 
 ##########################
 # hosts
