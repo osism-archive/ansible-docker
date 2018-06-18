@@ -81,11 +81,8 @@ def test_docker_user_group(host, AnsibleDefaults):
 
 
 def test_docker_compose_package(host):
-    try:
-        p = host.package("docker-compose")
-        assert not p.is_installed
-    except:
-        assert True
+    p = host.package("docker-compose")
+    assert not p.is_installed
 
 
 def test_docker_compose_file(host):
