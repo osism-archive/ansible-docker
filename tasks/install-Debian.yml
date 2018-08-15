@@ -48,3 +48,43 @@
       Pin-Priority: -1
     dest: /etc/apt/preferences.d/docker-compose
   become: true
+
+# FIXME(berendt): Add support for bionic release.
+
+- name: Remove python-docker package (openstack_version != ocata)
+  package:
+    name: python-docker
+    state: absent
+  become: true
+  when: "openstack_version != 'ocata'"
+
+- name: Block installation of python-docker package (openstack_version != ocata)
+  copy:
+    content: |
+      Package: python-docker
+      Pin: version *
+      Pin-Priority: -1
+    dest: /etc/apt/preferences.d/python-docker
+  become: true
+  when: "openstack_version != 'ocata'"
+
+- name: Install python-docker package (openstack_version == ocata)
+  package:
+    name: python-docker
+    state: present
+  become: true
+  when: "openstack_version == 'ocata'"
+
+- name: Install python-pip package
+  package:
+    name: python-pip
+    state: present
+  become: true
+  when: "openstack_version != 'ocata'"
+
+- name: Install docker package (openstack_version != ocata)
+  pip:
+    name: docker
+    state: present
+  become: true
+  when: "openstack_version != 'ocata'"
