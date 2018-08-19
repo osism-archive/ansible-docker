@@ -85,6 +85,7 @@
 - name: Install docker package (openstack_version != ocata)
   pip:
     name: "{{ docker_pip_package_name }}"
+    extra_args: "{{ docker_pip_extra_args }}"
     state: present
   become: true
   when: "openstack_version != 'ocata'"

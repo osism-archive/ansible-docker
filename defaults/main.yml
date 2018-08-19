@@ -34,7 +34,9 @@ docker_hosts:
 # package
 
 docker_package_name: docker-ce
+
 docker_pip_package_name: docker
+docker_pip_extra_args: ""
 
 ##########################
 # versions
