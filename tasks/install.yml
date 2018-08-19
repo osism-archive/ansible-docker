@@ -1,7 +1,7 @@
 ---
 - name: Copy docker-compose binary
   copy:
-    src: docker-compose
+    src: binaries/docker-compose
     dest: /usr/local/bin/docker-compose
     owner: root
     group: root
