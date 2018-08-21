@@ -4,6 +4,7 @@
     name: apt-transport-https
     state: present
   become: true
+  when: docker_configure_repository|bool
 
 - name: Add repository gpg key
   apt_key:
