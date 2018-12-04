@@ -4,10 +4,11 @@ galaxy_info:
   description: Role osism.docker
   company: Betacloud Solutions GmbH
   license: Apache License 2.0
-  min_ansible_version: 2.4
+  min_ansible_version: 2.5
   platforms:
     - name: Ubuntu
       versions:
+        - bionic
         - xenial
   galaxy_tags:
     - system
