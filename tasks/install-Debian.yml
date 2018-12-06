@@ -87,6 +87,7 @@
   pip:
     name: "{{ docker_pip_package_name }}"
     extra_args: "{{ docker_pip_extra_args }}"
+    executable: pip
     state: present
   become: true
   when: "openstack_version != 'ocata'"
