@@ -26,8 +26,9 @@ environment = jinja2.Environment(loader=loader, keep_trailing_newline=True)
 
 template = environment.get_template(sys.argv[1])
 result = template.render({
-    "ansible_role_name": information["ansible_role_name"],
-    "travis_decrypt_key": information["travis_decrypt_key"]
+    "ansible_role_name": information.get("ansible_role_name", "NONE"),
+    "molecule_needs_docker": information.get("molecule_needs_docker", False),
+    "travis_decrypt_key": information.get("travis_decrypt_key", "NONE")
 })
 with open(sys.argv[1], "w+") as fp:
     fp.write(result)

@@ -1,21 +1,4 @@
 ---
-- name: Prepare instance for use with Ansible
-  hosts: all
-  gather_facts: false
-  no_log: "{{ not lookup('env', 'MOLECULE_DEBUG') | bool }}"
-
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
-
-  tasks:
-    - name: Wait for system to become reachable
-      wait_for_connection:
-
-    - name: Install required packages
-      raw: test -e /usr/bin/python || (apt clean && apt update && apt install -y python-minimal)
-      become: true
-      changed_when: false
-
 - name: Playbook for role preparations
   hosts: all
 

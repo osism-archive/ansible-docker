@@ -26,3 +26,4 @@
         - python scripts/render-template.py README.md
         - python scripts/render-template.py .travis.yml
         - python scripts/render-template.py meta/main.yml
+        - python scripts/render-template.py molecule/default/prepare.yml

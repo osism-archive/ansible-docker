@@ -1,3 +1,3 @@
 ---
-travis_decrypt_key: 756f7484f8dc
 ansible_role_name: docker
+travis_decrypt_key: 756f7484f8dc
