@@ -54,6 +54,8 @@ docker_registry_username: ""
 docker_insecure_registries:
   - registry-1.osism.io
 
+docker_registry_mirrors: []
+
 ##########################
 # storage driver
 
