@@ -1,10 +1,11 @@
 ---
 - name: Install apt-transport-https package
-  package:
+  apt:
     name: apt-transport-https
     state: present
   become: true
   when: docker_configure_repository|bool
+  changed_when: false
 
 - name: Add repository gpg key
   apt_key:
