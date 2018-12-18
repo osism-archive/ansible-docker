@@ -51,44 +51,47 @@
     dest: /etc/apt/preferences.d/docker-compose
   become: true
 
-# FIXME(berendt): Add support for bionic release.
+- name: Install python bindings with apt
+  block:
+    - name: Unblock installation of python-docker package
+      file:
+        dest: /etc/apt/preferences.d/python-docker
+        state: absent
 
-- name: Remove python-docker package (openstack_version != ocata)
-  package:
-    name: python-docker
-    state: absent
-  become: true
-  when: "openstack_version != 'ocata'"
+    - name: Install python-docker package
+      package:
+        name: "{{ docker_python_package_name }}"
+        state: present
 
-- name: Block installation of python-docker package (openstack_version != ocata)
-  copy:
-    content: |
-      Package: python-docker
-      Pin: version *
-      Pin-Priority: -1
-    dest: /etc/apt/preferences.d/python-docker
   become: true
-  when: "openstack_version != 'ocata'"
+  when: not docker_python_install_from_pip|bool
 
-- name: Install python-docker package (openstack_version == ocata)
-  package:
-    name: python-docker
-    state: present
-  become: true
-  when: "openstack_version == 'ocata'"
+- name: Install python bindings with pip
+  block:
+    - name: Remove python-docker package (install python bindings from pip)
+      package:
+        name: "{{ docker_python_package_name }}"
+        state: absent
 
-- name: Install python-pip package
-  package:
-    name: python-pip
-    state: present
-  become: true
-  when: "openstack_version != 'ocata'"
+    - name: Block installation of python-docker package (install python bindings from pip)
+      copy:
+        content: |
+          Package: {{ docker_python_package_name }}
+          Pin: version *
+          Pin-Priority: -1
+        dest: /etc/apt/preferences.d/python-docker
 
-- name: Install docker package (openstack_version != ocata)
-  pip:
-    name: "{{ docker_pip_package_name }}"
-    extra_args: "{{ docker_pip_extra_args }}"
-    executable: pip
-    state: present
+    - name: Install python-pip package (install python bindings from pip)
+      package:
+        name: python-pip
+        state: present
+
+    - name: Install docker package (install python bindings from pip)
+      pip:
+        name: "{{ docker_pip_package_name }}"
+        extra_args: "{{ docker_pip_extra_args }}"
+        executable: pip
+        state: present
+
   become: true
-  when: "openstack_version != 'ocata'"
+  when: docker_python_install_from_pip|bool

@@ -35,6 +35,12 @@ docker_hosts:
 
 docker_package_name: docker-ce
 
+##########################
+# python package
+
+docker_python_package_name: python-docker
+
+docker_python_install_from_pip: "{{ (openstack_version != 'ocata' and ansible_distribution_release == 'xenial') or (ansible_distribution_release == 'xenial') }}"
 docker_pip_package_name: docker
 docker_pip_extra_args: ""
 
