@@ -5,5 +5,5 @@
   systemd:
     state: restarted
     daemon_reload: yes
-    name: docker
+    name: "{{ docker_service_name }}"
   become: true

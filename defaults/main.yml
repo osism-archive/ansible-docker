@@ -31,6 +31,11 @@ docker_hosts:
   - "tcp://127.0.0.1:2375"
 
 ##########################
+# service
+
+docker_service_name: docker
+
+##########################
 # package
 
 docker_package_name: docker-ce
