@@ -62,8 +62,8 @@ docker_version: "5:18.09.2"
 # registry
 
 docker_registry: index.docker.io
-docker_registry_password: ""
-docker_registry_username: ""
+docker_registry_password:
+docker_registry_username:
 
 docker_insecure_registries: []
 docker_registry_mirrors: []
