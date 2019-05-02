@@ -53,12 +53,12 @@
 
 - name: Install python bindings with apt
   block:
-    - name: Unblock installation of python-docker package
+    - name: Unblock installation of python docker package
       file:
         dest: /etc/apt/preferences.d/python-docker
         state: absent
 
-    - name: Install python-docker package
+    - name: Install python docker package
       package:
         name: "{{ docker_python_package_name }}"
         state: present
@@ -68,12 +68,12 @@
 
 - name: Install python bindings with pip
   block:
-    - name: Remove python-docker package (install python bindings from pip)
+    - name: Remove python docker package (install python bindings from pip)
       package:
         name: "{{ docker_python_package_name }}"
         state: absent
 
-    - name: Block installation of python-docker package (install python bindings from pip)
+    - name: Block installation of python docker package (install python bindings from pip)
       copy:
         content: |
           Package: {{ docker_python_package_name }}
