@@ -20,8 +20,7 @@
 
 - name: Mount storage block device to docker directory
   mount:
-    # NOTE: changes to path after 2.3
-    name: /var/lib/docker
+    path: /var/lib/docker
     src: "{{ docker_storage_block_device }}"
     fstype: "{{ docker_storage_filesystem }}"
     state: mounted
