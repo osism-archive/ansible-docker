@@ -11,8 +11,13 @@ openstack_version: rocky
 
 docker_debug: "false"
 docker_experimental: "false"
-docker_ipv6: "false"
 docker_user: dragon
+
+##########################
+# networking
+
+docker_ipv6: "false"
+docker_mtu: 1500
 
 ##########################
 # logging
