@@ -61,7 +61,7 @@ docker_compose_version: 1.18.0
 
 # NOTE: This "5:" must be prepended starting with version 18.09.
 #       Check available version under Ubuntu with apt-cache madison docker-ce.
-docker_version: "5:18.09.5"
+docker_version: "5:18.09.6"
 
 ##########################
 # registry
