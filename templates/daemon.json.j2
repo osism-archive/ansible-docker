@@ -1,4 +1,24 @@
 {
+{% if docker_opts|length %}
+{% for key, value in docker_opts|dictsort %}
+{% if value is sameas false %}
+    "{{ key }}": false,
+{% elif value is sameas true %}
+    "{{ key }}": true,
+{% elif value is number %}
+    "{{ key }}": {{ value }},
+{% elif value is sequence %}
+    "{{ key }}": [
+{% for nvalue in value|sort %}
+      "{{ nvalue }}"{% if not loop.last %}, {% endif %}
+
+{% endfor %}
+    ],
+{% else %}
+    "{{ key }}": "{{ value }}",
+{% endif %}
+{% endfor %}
+{% endif %}
     "debug": {{ docker_debug }},
     "experimental": {{ docker_experimental }},
     "hosts": [{% for host in docker_hosts %}"{{ host }}"{% if not loop.last %}, {% endif %}{% endfor %}],
@@ -12,7 +32,6 @@
 
 {% endfor %}
     },
-    "mtu": {{ docker_mtu|int }},
     "registry-mirrors": [{% for mirror in docker_registry_mirrors %}"{{ mirror }}"{% if not loop.last %}, {% endif %}{% endfor %}],
     "storage-driver": "{{ docker_storage_driver }}"
 }

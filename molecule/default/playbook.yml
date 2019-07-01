@@ -5,6 +5,12 @@
   vars:
     docker_configure_storage_block_device: yes
     docker_storage_block_device: /dev/loop0
+    docker_opts:
+      mtu: 0
+      selinux-enabled: false
+      dns-search:
+        - betacloud.xyz
+        - osism.xyz
 
   roles:
     - role: ansible-docker

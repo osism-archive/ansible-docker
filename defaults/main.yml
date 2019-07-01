@@ -17,7 +17,6 @@ docker_user: dragon
 # networking
 
 docker_ipv6: "false"
-docker_mtu: 1500
 
 ##########################
 # logging
@@ -107,3 +106,9 @@ docker_configure_repository: yes
 docker_debian_repository_arch: amd64
 docker_debian_repository_key: https://download.docker.com/linux/ubuntu/gpg
 docker_debian_repository: "deb [ arch={{ docker_debian_repository_arch }} ] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+
+##########################
+# other options
+
+# https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file
+docker_opts: {}
