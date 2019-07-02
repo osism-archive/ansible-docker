@@ -30,6 +30,15 @@
     dest: /etc/apt/preferences.d/docker
   become: true
 
+- name: Pin cli package version
+  copy:
+    content: |
+      Package: {{ docker_package_name }}-cli
+      Pin: version {{ docker_version }}*
+      Pin-Priority: 1001
+    dest: /etc/apt/preferences.d/docker-cli
+  become: true
+
 - name: Install package
   apt:
     name: "{{ docker_package_name }}={{ docker_version }}*"
