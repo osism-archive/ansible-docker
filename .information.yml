@@ -1,3 +1,4 @@
 ---
 ansible_role_name: docker
+molecule_testinfra: true
 travis_decrypt_key: 756f7484f8dc
