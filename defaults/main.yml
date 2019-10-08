@@ -56,7 +56,7 @@ docker_pip_extra_args: ""
 ##########################
 # versions
 
-docker_compose_version: 1.18.0
+docker_compose_version: 1.24.1
 
 # NOTE: This "5:" must be prepended starting with version 18.09.
 #       Check available version under Ubuntu with apt-cache madison docker-ce.
