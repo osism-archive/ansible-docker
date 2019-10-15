@@ -24,8 +24,13 @@
     owner: root
     group: root
     mode: 0644
-  notify: Restart docker service
+  register: systemd_overlay_template
   become: true
+
+- name: Reload systemd daemon if systemd overlay file is changed
+  systemd:
+    daemon_reload: true
+  when: systemd_overlay_template is changed
 
 - name: Copy limits configuration file
   copy:
