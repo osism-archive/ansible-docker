@@ -31,6 +31,7 @@
   systemd:
     daemon_reload: true
   when: systemd_overlay_template is changed
+  become: true
 
 - name: Copy limits configuration file
   copy:
