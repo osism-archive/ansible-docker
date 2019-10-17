@@ -39,6 +39,7 @@ docker_hosts:
 # service
 
 docker_service_name: docker
+containerd_service_name: containerd
 
 ##########################
 # package

@@ -36,6 +36,12 @@ def test_limits_file(host):
     assert f.is_file
 
 
+def test_containerd_service(host):
+    f = host.service("containerd")
+    assert f.is_running
+    assert f.is_enabled
+
+
 def test_docker_service(host):
     f = host.service("docker")
     assert f.is_running
