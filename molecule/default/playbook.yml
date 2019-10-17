@@ -5,13 +5,14 @@
   vars:
     docker_compose_install_from_url: yes
     docker_configure_storage_block_device: yes
-    docker_storage_block_device: /dev/loop0
     docker_opts:
       mtu: 0
       selinux-enabled: false
       dns-search:
         - betacloud.xyz
         - osism.xyz
+    docker_storage_block_device: /dev/loop0
+    docker_user: ubuntu
 
   roles:
     - role: ansible-docker

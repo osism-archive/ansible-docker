@@ -79,10 +79,8 @@ def test_docker_socket_tcp(host):
     assert s.is_listening
 
 
-def test_docker_user_group(host, AnsibleDefaults):
-    user = host.user(AnsibleDefaults["docker_user"])
-    assert user.name == AnsibleDefaults["docker_user"]
-    assert user.group == AnsibleDefaults["docker_user"]
+def test_docker_user_group(host):
+    user = host.user("ubuntu")
     assert "docker" in user.groups
 
 
@@ -104,3 +102,17 @@ def test_docker_compose_version(host, AnsibleDefaults):
     version_output = host.check_output('docker-compose version')
     assert "docker-compose version %s, build" % (
         AnsibleDefaults["docker_compose_version"]) in version_output
+
+
+def test_docker_usability(host):
+    cmd = host.run("docker run -d --name testing ubuntu:18.04 sleep infinity")
+    assert cmd.succeeded
+
+    c = host.docker("testing")
+    assert c.is_running
+
+    cmd = host.run("docker rm -f testing")
+    assert cmd.succeeded
+
+    cmd = host.run("docker rmi ubuntu:18.04")
+    assert cmd.succeeded
