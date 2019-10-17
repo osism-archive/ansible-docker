@@ -62,40 +62,44 @@
 
 - name: Install python bindings with apt
   block:
-    - name: Unblock installation of python docker package
+    - name: Unblock installation of python docker packages
       file:
-        dest: /etc/apt/preferences.d/python-docker
+        dest: "/etc/apt/preferences.d/{{ item }}"
         state: absent
+      with_items: "{{ docker_python_package_names }}"
 
-    - name: Install python docker package
+    - name: Install python docker packages
       package:
-        name: "{{ docker_python_package_name }}"
+        name: "{{ item }}"
         state: present
+      with_items: "{{ docker_python_package_names }}"
 
   become: true
   when: not docker_python_install_from_pip|bool
 
 - name: Install python bindings with pip
   block:
-    - name: Remove python docker package (install python bindings from pip)
+    - name: Remove python docker packages (install python bindings from pip)
       package:
-        name: "{{ docker_python_package_name }}"
+        name: "{{ item }}"
         state: absent
+      with_items: "{{ docker_python_package_names }}"
 
-    - name: Block installation of python docker package (install python bindings from pip)
+    - name: Block installation of python docker packages (install python bindings from pip)
       copy:
         content: |
-          Package: {{ docker_python_package_name }}
+          Package: {{ item }}
           Pin: version *
           Pin-Priority: -1
-        dest: /etc/apt/preferences.d/python-docker
+        dest: "/etc/apt/preferences.d/{{ item }}"
+      with_items: "{{ docker_python_package_names }}"
 
     - name: Install python-pip package (install python bindings from pip)
       package:
         name: python-pip
         state: present
 
-    - name: Install docker package (install python bindings from pip)
+    - name: Install docker packages (install python bindings from pip)
       pip:
         name: "{{ docker_pip_package_name }}"
         extra_args: "{{ docker_pip_extra_args }}"
