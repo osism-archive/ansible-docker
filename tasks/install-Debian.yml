@@ -45,21 +45,6 @@
     state: present
   become: true
 
-- name: Ensure docker-compose is not installed
-  apt:
-    name: docker-compose
-    state: absent
-  become: true
-
-- name: Block installation of docker-compose package
-  copy:
-    content: |
-      Package: docker-compose
-      Pin: version *
-      Pin-Priority: -1
-    dest: /etc/apt/preferences.d/docker-compose
-  become: true
-
 - name: Install python bindings with apt
   block:
     - name: Unblock installation of python docker packages

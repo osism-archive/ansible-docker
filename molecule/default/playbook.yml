@@ -3,6 +3,7 @@
   hosts: all
 
   vars:
+    docker_compose_install_from_url: yes
     docker_configure_storage_block_device: yes
     docker_storage_block_device: /dev/loop0
     docker_opts:
