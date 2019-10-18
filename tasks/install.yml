@@ -21,7 +21,6 @@
     owner: root
     group: root
     mode: 0755
-    checksum: "{{ docker_compose_checksum }}"
   become: true
   when: docker_compose_install_from_url|bool
 
@@ -32,6 +31,17 @@
     owner: root
     group: root
     mode: 0755
-    checksum: "{{ docker_compose_checksum }}"
   become: true
   when: not docker_compose_install_from_url|bool
+
+- name: Get checksum of docker-compose binary
+  stat:
+    path: /usr/local/bin/docker-compose
+    checksum_algorithm: sha256
+  register: p
+
+- name: Check checksum of docker-compose binary
+  fail:
+    msg: "Expected checksum of docker-compose does not match"
+  when:
+    - "p.stat.checksum != docker_compose_checksum"

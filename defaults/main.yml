@@ -68,7 +68,7 @@ docker_version: "5:18.09.6"
 # compose
 
 docker_compose_version: 1.24.1
-docker_compose_checksum: sha256:cfb3439956216b1248308141f7193776fcf4b9c9b49cbbe2fb07885678e2bb8a
+docker_compose_checksum: cfb3439956216b1248308141f7193776fcf4b9c9b49cbbe2fb07885678e2bb8a
 
 docker_compose_install_from_url: no
 docker_compose_url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
