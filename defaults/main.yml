@@ -112,7 +112,7 @@ docker_proxy_no_proxy:
 ##########################
 # repository
 
-docker_configure_repository: yes
+docker_configure_repository: no
 
 docker_debian_repository_arch: amd64
 docker_debian_repository_key: https://download.docker.com/linux/ubuntu/gpg
