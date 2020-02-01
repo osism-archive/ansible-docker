@@ -67,8 +67,8 @@ docker_version: "5:19.03.5"
 ##########################
 # compose
 
-docker_compose_version: 1.24.1
-docker_compose_checksum: cfb3439956216b1248308141f7193776fcf4b9c9b49cbbe2fb07885678e2bb8a
+docker_compose_version: 1.25.3
+docker_compose_checksum: b3835d30f66bd3b926511974138923713a253d634315479b9aa3166c0050da98
 
 docker_compose_install_from_url: no
 docker_compose_url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
