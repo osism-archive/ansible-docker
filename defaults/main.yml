@@ -45,6 +45,7 @@ containerd_service_name: containerd
 # package
 
 docker_package_name: docker-ce
+containerd_package_name: containerd.io
 
 ##########################
 # python package

@@ -39,6 +39,27 @@
     dest: /etc/apt/preferences.d/docker-cli
   become: true
 
+- name: Unlock containerd package
+  dpkg_selections:
+    name: "{{ containerd_package_name }}"
+    selection: install
+  become: true
+  tags: molecule-idempotence-notest
+
+# NOTE: At this point the last available version of containerd should be installed
+- name: Install containerd package
+  apt:
+    name: "{{ containerd_package_name }}"
+    state: latest
+  become: true  # noqa 403
+
+- name: Lock containerd package
+  dpkg_selections:
+    name: "{{ containerd_package_name }}"
+    selection: hold
+  become: true
+  tags: molecule-idempotence-notest
+
 - name: Install package
   apt:
     name: "{{ docker_package_name }}={{ docker_version }}*"
