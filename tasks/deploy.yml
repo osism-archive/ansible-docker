@@ -5,6 +5,7 @@
 
 - name: Include generic install tasks
   include: "install.yml"
+  when: docker_compose_install|bool
 
 - name: Include distribution specific install tasks
   include: "install-{{ ansible_os_family }}.yml"
