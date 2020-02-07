@@ -69,6 +69,8 @@ docker_version: "5:19.03.5"
 ##########################
 # compose
 
+docker_compose_install: yes
+
 docker_compose_version: 1.25.3
 docker_compose_checksum: b3835d30f66bd3b926511974138923713a253d634315479b9aa3166c0050da98
 
