@@ -60,7 +60,13 @@
   become: true
   tags: molecule-idempotence-notest
 
-- name: Install package
+- name: Install docker-cli package
+  apt:
+    name: "{{ docker_cli_package_name }}={{ docker_version }}*"
+    state: present
+  become: true
+
+- name: Install docker package
   apt:
     name: "{{ docker_package_name }}={{ docker_version }}*"
     state: present

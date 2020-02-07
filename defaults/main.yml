@@ -36,15 +36,16 @@ docker_hosts:
   - "tcp://127.0.0.1:2375"
 
 ##########################
-# service
+# services
 
 docker_service_name: docker
 containerd_service_name: containerd
 
 ##########################
-# package
+# packages
 
 docker_package_name: docker-ce
+docker_cli_package_name: "{{ docker_package_name }}-cli"
 containerd_package_name: containerd.io
 
 ##########################
