@@ -26,6 +26,7 @@
     mode: 0644
   register: systemd_overlay_template
   become: true
+  notify: Restart docker service
 
 - name: Reload systemd daemon if systemd overlay file is changed
   systemd:
