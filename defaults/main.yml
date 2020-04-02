@@ -81,8 +81,8 @@ docker_compose_url: "https://github.com/docker/compose/releases/download/{{ dock
 # registry
 
 docker_registry: index.docker.io
-docker_registry_password: ""
-docker_registry_username: ""
+# docker_registry_password:
+# docker_registry_username:
 
 docker_insecure_registries: []
 docker_registry_mirrors: []
