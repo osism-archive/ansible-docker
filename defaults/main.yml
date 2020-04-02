@@ -48,6 +48,20 @@ docker_package_name: docker-ce
 docker_cli_package_name: "{{ docker_package_name }}-cli"
 containerd_package_name: containerd.io
 
+# NOTE: By default this role uses the packages from Docker itself. Therefore the
+#       packages of Ubuntu must not be installed.
+#
+#       To use the packages of Ubuntu the following parameters have to be adjusted.
+#       The repository of Docker should then also not be included
+#
+#       docker_package_name: docker.io
+#       containerd_package_name: containerd
+#       docker_packages_fail: []
+
+docker_packages_fail:
+  - containerd
+  - docker.io
+
 ##########################
 # python package
 
