@@ -1,4 +1,14 @@
 ---
+- name: Gather the apt package facts
+  package_facts:
+    manager: auto
+
+- name: Check whether packages are installed that should not be installed
+  fail:
+    msg: "{{ ansible_facts.packages[item] | length }} versions of {{ item }} are installed!"
+  when: "item in ansible_facts.packages"
+  with_items: "{{ docker_packages_fail }}"
+
 - name: Install apt-transport-https package
   apt:
     name: apt-transport-https
