@@ -74,11 +74,6 @@ def test_docker_mountpoint(host, AnsibleDefaults):
     assert m.filesystem == AnsibleDefaults["docker_storage_filesystem"]
 
 
-def test_docker_socket_tcp(host):
-    s = host.socket("tcp://127.0.0.1:2375")
-    assert s.is_listening
-
-
 def test_docker_user_group(host):
     user = host.user("ubuntu")
     assert "docker" in user.groups
