@@ -6,6 +6,13 @@
     docker_compose_install_from_url: yes
     docker_configure_repository: yes
     docker_configure_storage_block_device: yes
+    docker_default_address_pools:
+      - scope: local
+        base: 10.10.0.0/16
+        size: 24
+      - scope: global
+        base: 10.20.0.0/16
+        size: 24
     docker_opts:
       mtu: 0
       selinux-enabled: false
