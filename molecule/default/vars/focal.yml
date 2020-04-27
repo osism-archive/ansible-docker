@@ -1,0 +1,3 @@
+---
+device_name: loop3
+docker_storage_block_device: /dev/loop3
