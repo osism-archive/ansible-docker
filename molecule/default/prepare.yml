@@ -3,19 +3,24 @@
   hosts: all
 
   vars:
-    device_size: 1G
-    device_file: /tmp/docker.img
-    device_name: loop0
+    device_size: 100M
+    device_file: /home/ubuntu/docker.img
+
+  vars_files:
+    - "vars/{{ ansible_distribution_release }}.yml"
 
   tasks:
+
+    # NOTE: loop module is compiled in the kernel since focal
     - name: Load loop kernel module
       modprobe:
         name: loop
       become: true
+      when: "ansible_distribution_release in ['xenial', 'bionic']"
 
     - name: Create loopback device image
       command: fallocate -l {{ device_size }} {{ device_file }} creates={{ device_file }}
 
     - name: Setup loopback device
-      command: losetup /dev/{{ device_name }} {{ device_file }}
+      command: losetup -P /dev/{{ device_name }} {{ device_file }}
       become: true

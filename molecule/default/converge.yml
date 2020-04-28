@@ -19,8 +19,10 @@
       dns-search:
         - betacloud.xyz
         - osism.xyz
-    docker_storage_block_device: /dev/loop0
     docker_user: ubuntu
+
+  vars_files:
+    - "vars/{{ ansible_distribution_release }}.yml"
 
   roles:
     - role: ansible-docker

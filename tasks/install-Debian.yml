@@ -90,11 +90,16 @@
         state: absent
       with_items: "{{ docker_python_package_names }}"
 
-    - name: Install python docker packages
+    - name: Install python docker package
       package:
-        name: "{{ item }}"
+        name: "{{ docker_python_package_name }}"
         state: present
-      with_items: "{{ docker_python_package_names }}"
+      when: "ansible_distribution_release in ['xenial', 'bionic']"
+
+    - name: Install python3 docker package
+      package:
+        name: "{{ docker_python3_package_name }}"
+        state: present
 
   become: true
   when: not docker_python_install_from_pip|bool

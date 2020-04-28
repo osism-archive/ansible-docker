@@ -64,9 +64,11 @@ docker_packages_fail:
 ##########################
 # python package
 
+docker_python3_package_name: python3-docker
+docker_python_package_name: python-docker
 docker_python_package_names:
-  - python-docker
-  - python3-docker
+  - "{{ docker_python3_package_name }}"
+  - "{{ docker_python_package_name }}"
 
 docker_python_install_from_pip: "{{ (openstack_version != 'ocata' and ansible_distribution_release == 'xenial') or (ansible_distribution_release == 'xenial') }}"
 docker_pip_package_name: docker
@@ -133,7 +135,11 @@ docker_configure_repository: no
 
 docker_debian_repository_arch: amd64
 docker_debian_repository_key: https://download.docker.com/linux/ubuntu/gpg
-docker_debian_repository: "deb [ arch={{ docker_debian_repository_arch }} ] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+
+# NOTE: The focal repository for Docker CE is not yet available. Until then,
+#       we will use the Bionic repository for Focal.
+
+docker_debian_repository: "deb [ arch={{ docker_debian_repository_arch }} ] https://download.docker.com/linux/ubuntu {{ 'bionic' if ansible_distribution_release == 'focal' else ansible_distribution_release }} stable"
 
 ##########################
 # network

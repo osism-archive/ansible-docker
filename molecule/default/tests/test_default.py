@@ -70,7 +70,6 @@ def test_docker_mountpoint(host, AnsibleDefaults):
 
     m = host.mount_point("/var/lib/docker")
     assert m.exists
-    assert m.device == "/dev/loop0"
     assert m.filesystem == AnsibleDefaults["docker_storage_filesystem"]
 
 
@@ -100,7 +99,7 @@ def test_docker_compose_version(host, AnsibleDefaults):
 
 
 def test_docker_usability(host):
-    cmd = host.run("docker run -d --name testing ubuntu:18.04 sleep infinity")
+    cmd = host.run("docker run -d --name testing alpine sleep infinity")
     assert cmd.succeeded
 
     c = host.docker("testing")
@@ -109,5 +108,5 @@ def test_docker_usability(host):
     cmd = host.run("docker rm -f testing")
     assert cmd.succeeded
 
-    cmd = host.run("docker rmi ubuntu:18.04")
+    cmd = host.run("docker rmi alpine")
     assert cmd.succeeded
