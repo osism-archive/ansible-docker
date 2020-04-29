@@ -2,11 +2,6 @@
 docker_action: deploy
 
 ##########################
-# versions
-
-openstack_version: rocky
-
-##########################
 # generic
 
 docker_debug: "false"
@@ -70,7 +65,7 @@ docker_python_package_names:
   - "{{ docker_python3_package_name }}"
   - "{{ docker_python_package_name }}"
 
-docker_python_install_from_pip: "{{ (openstack_version != 'ocata' and ansible_distribution_release == 'xenial') or (ansible_distribution_release == 'xenial') }}"
+docker_python_install_from_pip: "{{ ansible_distribution_release == 'xenial' }}"
 docker_pip_package_name: docker
 docker_pip_extra_args: ""
 
