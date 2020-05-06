@@ -13,6 +13,7 @@ docker_user: dragon
 # networking
 
 docker_ipv6: "false"
+docker_default_network: true
 
 ##########################
 # logging
