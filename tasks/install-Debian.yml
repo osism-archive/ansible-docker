@@ -135,3 +135,15 @@
 
   become: true
   when: docker_python_install_from_pip|bool
+
+- name: Install packages required by docker login
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - gnupg2
+    - pass
+  become: true
+  when:
+    - docker_registry_username is defined and docker_registry_username|length > 0
+    - docker_registry_password is defined and docker_registry_password|length > 0
