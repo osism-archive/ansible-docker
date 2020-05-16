@@ -5,6 +5,8 @@
     "{{ key }}": false,
 {% elif value is sameas true %}
     "{{ key }}": true,
+{% elif value is string %}
+    "{{ key }}": "{{ value }}",
 {% elif value is number %}
     "{{ key }}": {{ value }},
 {% elif value is sequence %}
