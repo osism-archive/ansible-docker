@@ -90,12 +90,6 @@
         state: absent
       with_items: "{{ docker_python_package_names }}"
 
-    - name: Install python docker package
-      package:
-        name: "{{ docker_python_package_name }}"
-        state: present
-      when: "ansible_distribution_release in ['xenial', 'bionic']"
-
     - name: Install python3 docker package
       package:
         name: "{{ docker_python3_package_name }}"
@@ -121,16 +115,16 @@
         dest: "/etc/apt/preferences.d/{{ item }}"
       with_items: "{{ docker_python_package_names }}"
 
-    - name: Install python-pip package (install python bindings from pip)
+    - name: Install python3-pip package (install python bindings from pip)
       package:
-        name: python-pip
+        name: python3-pip
         state: present
 
     - name: Install docker packages (install python bindings from pip)
       pip:
         name: "{{ docker_pip_package_name }}"
         extra_args: "{{ docker_pip_extra_args }}"
-        executable: pip
+        executable: pip3
         state: present
 
   become: true
