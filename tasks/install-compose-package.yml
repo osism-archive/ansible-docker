@@ -1,0 +1,42 @@
+---
+- name: Remove docker-compose apt preferences file
+  file:
+    path: /etc/apt/preferences.d/docker-compose
+    state: absent
+  become: true
+  when: not docker_compose_configure_repository|bool
+
+- name: Use docker-compose from backport repository
+  copy:
+    content: |
+      Package: {{ docker_compose_package_name }}
+      Pin: release o=pbuilder
+      Pin-Priority: 999
+
+      Package: python3-requests
+      Pin: release o=pbuilder
+      Pin-Priority: 999
+    dest: /etc/apt/preferences.d/docker-compose
+  become: true
+  when: docker_compose_configure_repository|bool
+
+- name: Add repository
+  apt_repository:
+    repo: "{{ docker_compose_debian_repository }}"
+    state: present
+    update_cache: yes
+  become: true
+  when: docker_compose_configure_repository|bool
+
+- name: Remove docker-compose binary
+  file:
+    path: /usr/local/bin/docker-compose
+    state: absent
+  become: true
+
+- name: Install docker-compose package
+  apt:
+    name: "{{ docker_compose_package_name }}"
+    state: present
+    install_recommends: no
+  become: true

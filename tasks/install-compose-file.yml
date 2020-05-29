@@ -14,16 +14,6 @@
     dest: /etc/apt/preferences.d/docker-compose
   become: true
 
-- name: Download docker-compose binary
-  get_url:
-    url: "{{ docker_compose_url }}"
-    dest: /usr/local/bin/docker-compose
-    owner: root
-    group: root
-    mode: 0755
-  become: true
-  when: docker_compose_install_from_url|bool
-
 - name: Copy docker-compose binary
   copy:
     src: binaries/docker-compose
@@ -32,7 +22,6 @@
     group: root
     mode: 0755
   become: true
-  when: not docker_compose_install_from_url|bool
 
 - name: Get checksum of docker-compose binary
   stat:
