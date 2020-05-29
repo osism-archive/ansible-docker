@@ -3,6 +3,10 @@
   include: storage.yml
   when: docker_configure_storage_block_device|bool
 
+- name: Include kata install tasks
+  include: "install-kata-{{ ansible_os_family }}.yml"
+  when: docker_kata_install|bool
+
 - name: Include docker install tasks
   include: "install-docker-{{ ansible_os_family }}.yml"
 
