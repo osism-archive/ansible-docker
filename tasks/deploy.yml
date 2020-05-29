@@ -3,12 +3,11 @@
   include: storage.yml
   when: docker_configure_storage_block_device|bool
 
-- name: Include generic install tasks
-  include: "install.yml"
-  when: docker_compose_install|bool
+- name: Include compose install tasks
+  include: "install-compose-{{ docker_compose_install_type }}.yml"
 
-- name: Include distribution specific install tasks
-  include: "install-{{ ansible_os_family }}.yml"
+- name: Include docker install tasks
+  include: "install-docker-{{ ansible_os_family }}.yml"
 
 - name: Include config tasks
   include: config.yml
