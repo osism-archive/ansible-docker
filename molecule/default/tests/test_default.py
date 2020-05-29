@@ -6,12 +6,6 @@ def AnsibleDefaults(host):
     return host.ansible("include_vars", "defaults.yml")["ansible_facts"]
 
 
-def test_apt_preferences_docker_compose_file(host):
-    f = host.file("/etc/apt/preferences.d/docker-compose")
-    assert f.exists
-    assert f.is_file
-
-
 def test_apt_preferences_docker_file(host):
     f = host.file("/etc/apt/preferences.d/docker")
     assert f.exists
@@ -76,26 +70,6 @@ def test_docker_mountpoint(host, AnsibleDefaults):
 def test_docker_user_group(host):
     user = host.user("ubuntu")
     assert "docker" in user.groups
-
-
-def test_docker_compose_package(host):
-    p = host.package("docker-compose")
-    assert not p.is_installed
-
-
-def test_docker_compose_file(host):
-    f = host.file("/usr/local/bin/docker-compose")
-    assert f.exists
-    assert f.is_file
-    assert f.user == "root"
-    assert f.group == "root"
-    assert f.mode == 0o755
-
-
-def test_docker_compose_version(host, AnsibleDefaults):
-    version_output = host.check_output('docker-compose version')
-    assert "docker-compose version %s, build" % (
-        AnsibleDefaults["docker_compose_version"]) in version_output
 
 
 def test_docker_usability(host):
