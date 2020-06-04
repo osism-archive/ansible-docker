@@ -1,5 +1,5 @@
 ---
-- name: Destroy
+- name: Playbook for resource destruction
   hosts: localhost
   connection: local
   gather_facts: false
