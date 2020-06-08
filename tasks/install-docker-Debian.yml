@@ -27,6 +27,7 @@
   apt_repository:
     repo: "{{ docker_debian_repository }}"
     state: present
+    filename: docker
     update_cache: yes
   become: true
   when: docker_configure_repository|bool
