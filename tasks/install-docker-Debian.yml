@@ -7,7 +7,7 @@
   fail:
     msg: "{{ ansible_facts.packages[item] | length }} versions of {{ item }} are installed!"
   when: "item in ansible_facts.packages"
-  with_items: "{{ docker_packages_fail }}"
+  loop: "{{ docker_packages_fail }}"
 
 - name: Install apt-transport-https package
   apt:
@@ -89,7 +89,7 @@
       file:
         dest: "/etc/apt/preferences.d/{{ item }}"
         state: absent
-      with_items: "{{ docker_python_package_names }}"
+      loop: "{{ docker_python_package_names }}"
 
     - name: Install python3 docker package
       package:
@@ -105,7 +105,7 @@
       package:
         name: "{{ item }}"
         state: absent
-      with_items: "{{ docker_python_package_names }}"
+      loop: "{{ docker_python_package_names }}"
 
     - name: Block installation of python docker packages (install python bindings from pip)
       copy:
@@ -114,7 +114,7 @@
           Pin: version *
           Pin-Priority: -1
         dest: "/etc/apt/preferences.d/{{ item }}"
-      with_items: "{{ docker_python_package_names }}"
+      loop: "{{ docker_python_package_names }}"
 
     - name: Install python3-pip package (install python bindings from pip)
       package:
