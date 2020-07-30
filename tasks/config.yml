@@ -53,5 +53,6 @@
   notify: Restart docker service
   become: true
 
-- name: Flush handlers
-  meta: flush_handlers
+- name: Include open policy agent tasks
+  include_tasks: config-open-policy-agent.yml
+  when: docker_policies|bool

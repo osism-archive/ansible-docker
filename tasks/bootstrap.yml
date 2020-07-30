@@ -1,4 +1,7 @@
 ---
+- name: Flush handlers
+  meta: flush_handlers
+
 - name: Add user to docker group
   user:
     name: "{{ docker_user }}"
