@@ -4,3 +4,9 @@
     state: restarted
     name: "{{ docker_service_name }}"
   become: true
+
+- name: Reload docker service
+  systemd:
+    state: reloaded
+    name: "{{ docker_service_name }}"
+  become: true

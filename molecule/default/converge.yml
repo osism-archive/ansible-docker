@@ -19,6 +19,7 @@
       dns-search:
         - betacloud.xyz
         - osism.xyz
+    docker_policies: true
     docker_user: ubuntu
 
   vars_files:

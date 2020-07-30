@@ -155,6 +155,19 @@ docker_kata_debian_repository_key: "http://download.opensuse.org/repositories/ho
 docker_kata_debian_repository: "deb [ arch={{ docker_kata_debian_repository_arch }} ] http://download.opensuse.org/repositories/home:/katacontainers:/releases:/x86_64:/stable-{{ docker_kata_version }}/xUbuntu_{{ '18.04' if ansible_distribution_release == 'focal' else ansible_distribution_version }}/ /"
 
 ##########################
+# policies
+
+docker_policies: false
+
+docker_open_policy_agent_tag: "0.7"
+docker_open_policy_agent_image: "{{ docker_registry}}/openpolicyagent/opa-docker-authz-v2:{{ docker_open_policy_agent_tag }}"
+
+docker_authorization_plugins:
+  - "{{ docker_open_policy_agent_image }}"
+docker_static_policy_files:
+  - default.rego
+
+##########################
 # other options
 
 # https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file

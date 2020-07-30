@@ -1,0 +1,22 @@
+---
+name: Test open policy agent files
+
+on:
+  push:
+    paths:
+      - '.github/workflows/test-open-policy-agent-files.yml'
+      - 'files/policies/*.rego'
+  pull_request:
+    paths:
+      - '.github/workflows/test-open-policy-agent-files.yml'
+      - 'files/policies/*.rego'
+
+jobs:
+  default:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker://openpolicyagent/opa:latest
+        with:
+          entrypoint: /opa
+          args: test -v /github/workspace/files/policies/
