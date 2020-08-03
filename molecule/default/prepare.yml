@@ -19,8 +19,8 @@
       when: "ansible_distribution_release in ['xenial', 'bionic']"
 
     - name: Create loopback device image
-      command: fallocate -l {{ device_size }} {{ device_file }} creates={{ device_file }}
+      command: "fallocate -l {{ device_size }} {{ device_file }} creates={{ device_file }}"  # noqa 301
 
     - name: Setup loopback device
-      command: losetup -P /dev/{{ device_name }} {{ device_file }}
+      command: "losetup -P /dev/{{ device_name }} {{ device_file }}"  # noqa 301
       become: true

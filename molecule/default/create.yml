@@ -44,7 +44,7 @@
       register: keypair
 
     - name: Persist the keypair
-      copy:
+      copy:  # noqa 503
         dest: "{{ keypair_path }}"
         content: "{{ keypair.key.private_key }}"
         mode: 0600
@@ -62,9 +62,9 @@
         key_name: "{{ keypair_name }}"
         nics:
           - net-name: "{{ nova.network_name }}"
-        config_drive: yes
-        delete_fip: yes
-        auto_ip: no
+        config_drive: true
+        delete_fip: true
+        auto_ip: false
         timeout: 360
       register: server
       loop: "{{ molecule_yml.platforms }}"
@@ -84,7 +84,7 @@
         cloud: molecule
         server: "{{ item.name }}"
         network: "{{ nova.floating_ip_pool }}"
-        wait: yes
+        wait: true
       register: floating_ip
       loop: "{{ molecule_yml.platforms }}"
       async: 7200
@@ -101,26 +101,24 @@
     # Mandatory configuration for molecule to function.
 
     - name: Populate instance config dict
-      set_fact:
+      set_fact:  # noqa 503
         instance_conf_dict: {
           'instance': "{{ item.0.openstack.name }}",
           'address': "{{ item.1.floating_ip.floating_ip_address }}",
           'user': "{{ ssh_user }}",
           'port': "{{ ssh_port }}",
           'identity_file': "{{ keypair_path }}"}
-      with_together:
-        - "{{ os_jobs_server.results }}"
-        - "{{ os_jobs_floating_ip.results }}"
+      loop: "{{ os_jobs_server.results|zip(os_jobs_floating_ip.results)|list }}"
       register: instance_config_dict
       when: server.changed | bool
 
     - name: Convert instance config dict to a list
-      set_fact:
+      set_fact:  # noqa 503
         instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
       when: server.changed | bool
 
     - name: Dump instance config
-      copy:
+      copy:  # noqa 503
         content: "{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}"
         dest: "{{ molecule_instance_config }}"
       when: server.changed | bool

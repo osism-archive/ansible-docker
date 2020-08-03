@@ -1,9 +1,13 @@
 ---
-- git: https://github.com/osism/travis-master.git
+- git: https://github.com/osism/generics.git
   version: master
   files:
     - src: github/*.yml
       dst: .github/
+    - src: github/workflows/*.yml
+      dst: .github/workflows/
+    - src: github/cleanup.sh
+      dst: scripts/cleanup-github.sh
     - src: molecule/ansible.cfg
       dst: molecule/default/ansible.cfg
     - src: molecule/*.yml
@@ -11,6 +15,8 @@
     - src: molecule/group_vars/*.yml
       dst: molecule/default/group_vars/
     - src: ansible/*requirements.txt
+      dst: ./
+    - src: ansible/LICENSE
       dst: ./
     - src: ansible/gilt.yml
       dst: ./
@@ -35,3 +41,5 @@
         - python3 scripts/render-template.py molecule/default/molecule.yml
         - python3 scripts/render-template.py tox.ini
         - rm -f scripts/render-template.py
+        - bash scripts/cleanup-github.sh
+        - rm -f scripts/cleanup-github.sh
