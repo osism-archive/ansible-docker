@@ -7,7 +7,7 @@ docker_action: deploy
 docker_debug: "false"
 docker_experimental: "false"
 docker_live_restore: "true"
-docker_user: dragon
+docker_user: "{{ operator_user | default('dragon') }}"
 
 ##########################
 # networking
