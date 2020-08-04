@@ -168,6 +168,11 @@ docker_static_policy_files:
   - default.rego
 
 ##########################
+# content trust
+
+docker_content_trust: permissive
+
+##########################
 # other options
 
 # https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file

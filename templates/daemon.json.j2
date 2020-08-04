@@ -27,6 +27,9 @@
 {% if docker_disable_default_network is defined and docker_disable_default_network|bool %}
     "bridge": "none",
 {% endif %}
+    "content-trust": {
+      "mode": "{{ docker_content_trust }}"
+    },
     "debug": {{ docker_debug }},
 {% if docker_default_address_pools is defined %}
     "default-address-pools" : [
