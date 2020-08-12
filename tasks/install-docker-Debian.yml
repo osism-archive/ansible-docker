@@ -29,6 +29,7 @@
     state: present
     filename: docker
     update_cache: yes
+    mode: 0644
   become: true
   when: docker_configure_repository|bool
 
@@ -39,6 +40,7 @@
       Pin: version {{ docker_version }}*
       Pin-Priority: 1001
     dest: /etc/apt/preferences.d/docker
+    mode: 0644
   become: true
 
 - name: Pin cli package version
@@ -48,6 +50,7 @@
       Pin: version {{ docker_version }}*
       Pin-Priority: 1001
     dest: /etc/apt/preferences.d/docker-cli
+    mode: 0644
   become: true
 
 - name: Unlock containerd package
