@@ -12,7 +12,6 @@
       - scope: global
         base: 10.20.0.0/16
         size: 24
-    docker_kata_install: yes
     docker_opts:
       mtu: 0
       selinux-enabled: false
